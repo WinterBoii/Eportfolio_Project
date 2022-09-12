@@ -12,6 +12,14 @@ app.engine("hbs", expressHandlebars.engine({
     defaultLayout: 'main'
 }))
 
+app.get('/', (req, res) => { 
+    res.render('home.hbs')
+})
+
+app.get('/', (req, res) => { 
+    res.render('work.hbs')
+})
+
 app.use('/public', express.static(path.join(__dirname,'/public')))
 
 app.use(projectRouter)

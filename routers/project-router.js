@@ -3,11 +3,8 @@ const express = require('express')
 const router = express.Router()
 
 
-router.get('/', (req, res) => {
-  const model = {
-        humans: dummyData.humans
-    }
-    res.render("home.hbs", model)
+router.get('/work', (req, res) => {
+    res.render("work.hbs", model)
 })
 
 module.exports = router
