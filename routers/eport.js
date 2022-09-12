@@ -12,4 +12,14 @@ router.get('/projects', (req, res) => {
   res.render('projects.hbs')
 })
 
+
+// function auth(req, res, next) {
+//     if (req.query.admin === 'true') {
+//         req.admin = true
+//         next()
+//     } else {
+//         res.send(403)
+//     }
+// }
+
 module.exports = router
