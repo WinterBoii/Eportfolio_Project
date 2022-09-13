@@ -1,31 +1,38 @@
 <section id="projects">
 	<div class="container">
 		<div class="row">
-			<h1 class="section__title">
-				Here are some of my
-				<span class="purple">projects</span>
-			</h1>
-			<ul class="project__list">
-				{{#each projects}}
-					<li class="project">
-						<div class="project__wrapper">
-							<img class="project__img" src="{{bg}}" />
-							<div class="project__wrapper--bg"></div>
-							<div class="project__description">
-								<h3 class="project__description--title">
-									{{title}}
-								</h3>
-								<h4 class="project__description--sub-title">
-									{{sub_title}}
-								</h4>
-								<p class="project__description--para">
-									{{description}}
-								</p>
+			{{#if projects.length}}
+				<h1 class="section__title">
+					Here are some of my
+					<span class="purple">projects</span>
+				</h1>
+				<ul class="project__list">
+					{{#each projects}}
+						<li class="project">
+							<div class="project__wrapper">
+								<img class="project__img" src="{{bg}}" />
+								<div class="project__wrapper--bg"></div>
+								<div class="project__description">
+									<h3 class="project__description--title">
+										{{title}}
+									</h3>
+									<h4 class="project__description--sub-title">
+										{{sub_title}}
+									</h4>
+									<p class="project__description--para">
+										{{description}}
+									</p>
+								</div>
 							</div>
-						</div>
-					</li>
-				{{/each}}
-			</ul>
+						</li>
+					{{/each}}
+				</ul>
+			{{else}}
+				<h1 class="section__title">
+					Projects will be added
+					<span class="purple">soon!</span>
+				</h1>
+			{{/if}}
 		</div>
 	</div>
 </section>
