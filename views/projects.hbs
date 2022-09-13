@@ -6,80 +6,25 @@
 				<span class="purple">projects</span>
 			</h1>
 			<ul class="project__list">
-				<li class="project">
-					<div class="project__wrapper">
-						<img
-							src="/public/assets/stationary-dark-copper.jpg"
-							alt=""
-							class="project__img"
-						/>
-						<div class="project__wrapper--bg"></div>
-						<div class="project__description">
-							<h3 class="project__description--title">
-								Placeholder
-							</h3>
-							<h4 class="project__description--sub-title">
-								Html, CSS, JavaScript
-							</h4>
-							<p class="project__description--para">
-								Google In-Store is a platform allowing Google retail employees
-								to report any issues with their store products. Once an issue is
-								reported, it is posted to an API which populates a separate
-								platform's frontend - which is used by Google's vendors to fix
-								the issue as soon as possible. I was the sole front-end
-								developer of this application.
-							</p>
+				{{#each projects}}
+					<li class="project">
+						<div class="project__wrapper">
+							<img class="project__img" src="{{bg}}" />
+							<div class="project__wrapper--bg"></div>
+							<div class="project__description">
+								<h3 class="project__description--title">
+									{{title}}
+								</h3>
+								<h4 class="project__description--sub-title">
+									{{sub_title}}
+								</h4>
+								<p class="project__description--para">
+									{{description}}
+								</p>
+							</div>
 						</div>
-					</div>
-				</li>
-				<li class="project">
-					<div class="project__wrapper">
-						<img
-							src="/public/assets/website-instant-showcase.jpg"
-							alt=""
-							class="project__img"
-						/>
-						<div class="project__wrapper--bg"></div>
-						<div class="project__description">
-							<h3 class="project__description--title">
-								Placeholder
-							</h3>
-							<h4 class="project__description--sub-title">
-								React, the most popular component
-							</h4>
-							<p class="project__description--para">
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-								consequuntur perferendis ab pariatur id facere repellat quia
-								obcaecati cumque. Ullam consequatur minima pariatur. Neque porro
-								officiis quaerat illo non doloremque.
-							</p>
-						</div>
-					</div>
-				</li>
-				<li class="project">
-					<div class="project__wrapper">
-						<img
-							src="/public/assets/3d-website-mockup.jpg"
-							alt=""
-							class="project__img"
-						/>
-						<div class="project__wrapper--bg"></div>
-						<div class="project__description">
-							<h3 class="project__description--title">
-								Placeholder
-							</h3>
-							<h4 class="project__description--sub-title">
-								React, the most popular component
-							</h4>
-							<p class="project__description--para">
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-								consequuntur perferendis ab pariatur id facere repellat quia
-								obcaecati cumque. Ullam consequatur minima pariatur. Neque porro
-								officiis quaerat illo non doloremque.
-							</p>
-						</div>
-					</div>
-				</li>
+					</li>
+				{{/each}}
 			</ul>
 		</div>
 	</div>

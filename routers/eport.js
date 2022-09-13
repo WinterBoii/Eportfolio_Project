@@ -1,6 +1,7 @@
 const projecstData = require('../projectsData')
 const express = require('express')
 
+
 const router = express.Router()
 
 // define the home page route
@@ -9,7 +10,10 @@ router.get('/', (req, res) => {
 })
 // define the project route
 router.get('/projects', (req, res) => {
-  res.render('projects.hbs')
+  const module = {
+    projects: projecstData.projects
+  }
+  res.render('projects.hbs', module)
 })
 
 
