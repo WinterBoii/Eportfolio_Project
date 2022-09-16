@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
+  z-index: 1;
 }
 
 html {
@@ -51,6 +52,8 @@ button {
 section {
   background-color: #242424;
   transition: all 300ms ease;
+  z-index: 0;
+  overflow: hidden;
 }
 
 .row {
@@ -109,7 +112,7 @@ nav, .scroll, .header {
 
 /* 
 
-  NAVIGATION 
+	NAVIGATION 
 
 */
 nav {
@@ -149,7 +152,7 @@ nav {
 
 /* 
 
-  LANDING PAGE 
+	LANDING PAGE 
 
 */
 #landing-page {
@@ -210,7 +213,7 @@ nav {
 
 /* 
 
-  PROJECTS 
+	PROJECTS 
 
 */
 .section__title {
@@ -238,25 +241,25 @@ nav {
 
 /* 
 
-  SHAPES
+	SHAPES
 
-  shapes on the first row 
-  height = 15vh
+	shapes on the first row 
+	height = 15vh
 
-  shapes on the second row 
-  height = 50vh
+	shapes on the second row 
+	height = 50vh
 
-  shapes on the third row 
-  height = 80vh
+	shapes on the third row 
+	height = 80vh
 
-  shapes on the first column
-  width = 5vw
+	shapes on the first column
+	width = 5vw
 
-  shapes on the second column
-  width = 50vw
+	shapes on the second column
+	width = 50vw
 
-  shapes on the third column
-  width = 80vw
+	shapes on the third column
+	width = 80vw
 
 */
 .shape {
@@ -265,7 +268,7 @@ nav {
 
 .shape--0 {
   top: 15vh;
-  left: 5vw;
+  left: 9vw;
   rotate: 30deg;
 }
 
@@ -279,12 +282,14 @@ nav {
   top: 15vh;
   left: 80vw;
   rotate: 30deg;
+  z-index: 0;
 }
 
 .shape--3 {
   top: 50vh;
   left: 5vw;
   rotate: 30deg;
+  z-index: 0;
 }
 
 .shape--4 {
@@ -303,16 +308,19 @@ nav {
   top: 80vh;
   left: 5vw;
   rotate: -45deg;
+  z-index: 0;
 }
 
 .shape--7 {
   top: 80vh;
   left: 50vw;
   rotate: 30deg;
+  z-index: 0;
 }
 
 .shape--8 {
   top: 80vh;
   left: 80vw;
   rotate: 30deg;
+  z-index: 0;
 }/*# sourceMappingURL=styles.css.map */

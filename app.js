@@ -1,19 +1,19 @@
+const express = require("express");
+const expressHandlebars = require("express-handlebars");
+const path = require("path");
 
-const express = require('express')
-const expressHandlebars = require('express-handlebars')
-const path = require('path')
+const app = express();
 
-const app = express()
-
-const eport = require('./routers/eport')
+const eport = require("./routers/eport");
 
 app.engine("hbs", expressHandlebars.engine({
-    extname: 'hbs',
-    defaultLayout: 'main'
-}))
+		extname: "hbs",
+		defaultLayout: "main",
+	})
+);
 
-app.use('/public', express.static(path.join(__dirname,'/public')))
+app.use("/public", express.static(path.join(__dirname, "/public")));
 
-app.use(eport)
+app.use(eport);
 
-app.listen(3000)
+app.listen(3000);

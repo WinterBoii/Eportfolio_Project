@@ -24,6 +24,13 @@ router.get('/contact', (req, res) => {
   res.render('contact.hbs', module)
 })
 
+//define the create project route
+router.get('/createProject', (req, res) => { 
+  const module = {
+    projec: projecstData.projects
+  }
+  res.render('createProject.hbs', module)
+})
 
 // function auth(req, res, next) {
 //     if (req.query.admin === 'true') {
