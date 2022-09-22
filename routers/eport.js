@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const sqlite3 = require('sqlite3')
-var bodyparser = require('body-parser')
 const multer = require("multer")
-
+const upload = multer({dest: 'public/assets/'})
 const db = new sqlite3.Database("portfolio-database.db")
+const bodyParser = require('body-parser')
+
+router.use(bodyParser.urlencoded({ extended: true }))
 
 db.run(`
   CREATE TABLE IF NOT EXISTS  projects (
@@ -16,38 +18,24 @@ db.run(`
   )
 `)
 
-router.use(bodyparser.urlencoded({
-    extended: true
-}))
+const imageFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb("Please upload only images.", false);
+  }
+};
 
-//! Use of Multer
 var storage = multer.diskStorage({
-    destination: (req, file, callBack) => {
-        callBack(null, 'public/assets/')     // './public/images/' directory name where save the file
-    },
-    filename: (req, file, callBack) => {
-        callBack(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-    }
-})
+  destination: (req, file, cb) => {
+    cb(null, __basedir + "public/assets/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-bezkoder-${file.originalname}`);
+  },
+});
 
-var upload = multer({
-    storage: storage
-})
-
-//route for post data
-router.post("/post", upload.single('image'), (req, res) => {
-    if (!req.file) {
-        console.log("No file upload");
-    } else {
-        console.log(req.file.filename)
-        var imgsrc = 'http://localhost:3000/createProject' + req.file.filename
-        var insertData = "INSERT INTO users_file(file_src)VALUES(?)"
-        db.query(insertData, [imgsrc], (err, result) => {
-            if (err) throw err
-            console.log("file uploaded")
-        })
-    }
-})
+var uploadFile = multer({ storage: storage, fileFilter: imageFilter });
 
 // define the home page route
 router.get('/', (req, res) => {
@@ -77,7 +65,7 @@ router.get('/contact', (req, res) => {
 //define the create project route
 router.get('/createProject', (req, res) => { 
   
-  res.render('createProject.hbs', module)
+  res.render('createProject.hbs')
 })
 
 router.post('/views/createProject', (req, res) => { 
@@ -86,15 +74,14 @@ router.post('/views/createProject', (req, res) => {
   var desc = req.body.description
   var bgImage = req.body.bgImage
   
+  const query = `
+    INSERT INTO projects (title, subtitle, desc, bgImage) VALUES (?, ?, ?, ?)
+  `
+  const values = [title, subtitle, desc, bgImage]
 
-  // db.all({
-  //   title: title,
-  //   subtitle: subtitle,
-  //   description: desc,
-  //   bgImage: bgImage
-  // })
-
-  res.redirect('/projects')
+  db.run(query, values, function (err) { 
+    res.redirect('projects.hbs')
+  })
 })
 
 // function auth(req, res, next) {
@@ -106,4 +93,5 @@ router.post('/views/createProject', (req, res) => {
 //     }
 // }
 
+module.exports = uploadFile
 module.exports = router

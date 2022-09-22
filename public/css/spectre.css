@@ -12,14 +12,14 @@ body {
 }
 
 /** Add the correct display in IE 9-. */
-article,
+/* article,
 aside,
 footer,
 header,
 nav,
 section {
   display: block;
-}
+} */
 
 /** Correct the font size and margin on `h1` elements within `section` and `article` contexts in Chrome, Firefox, and Safari. */
 /* h1 {
@@ -2639,7 +2639,7 @@ summary.accordion-header::-webkit-details-marker {
   list-style: none;
   margin: .2rem 0;
 } */
-
+/* 
 .nav .nav-item a {
   color: #66758c;
   padding: .2rem .4rem;
@@ -2664,7 +2664,7 @@ summary.accordion-header::-webkit-details-marker {
 .nav .nav {
   margin-bottom: .4rem;
   margin-left: .8rem;
-}
+} */
 
 .pagination {
   display: -ms-flexbox;

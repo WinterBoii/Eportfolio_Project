@@ -35,7 +35,7 @@ a {
 }
 
 input:focus, textarea:focus {
-  border-color: rgb(255, 220, 65);
+  border-color: orange;
 }
 
 button {
@@ -43,7 +43,7 @@ button {
 }
 
 .orange {
-  color: rgb(255, 220, 65) !important;
+  color: orange !important;
 }
 
 section {
@@ -126,11 +126,17 @@ input:focus, textarea:focus {
 }
 
 .link__hover-effect--white:after {
-  background-color: #fff;
+  background-color: orange;
 }
 
 .link__hover-effect--black:after {
-  background-color: #242424;
+  background-color: orange;
+}
+
+nav, .scroll, .header {
+  opacity: 1;
+  visibility: 1;
+  transition: all 600ms 800ms;
 }
 
 .modal--open nav,
@@ -146,7 +152,9 @@ input:focus, textarea:focus {
 .dark-theme .section__sub-title,
 .dark-theme .nav__link--anchor,
 .dark-theme .fa-adjust,
-.dark-theme .header__para {
+.dark-theme .header__para,
+.dark-theme .form-label,
+.dark-theme .removeBG {
   color: white;
 }
 
@@ -158,64 +166,9 @@ input:focus, textarea:focus {
   filter: none;
 }
 
-.dark-theme .scroll__icon {
-  border-color: white;
-}
-
-.dark-theme .scroll__icon:after,
-.dark-theme .link__hover-effect--black:after {
-  background-color: white;
-}
-
 .dark-theme .mail__btn {
   background-color: white;
   color: #242424;
-}
-
-/*
-
-NAVIGATION 
-
-*/
-nav, .scroll, .header {
-  opacity: 1;
-  visibility: 1;
-  transition: all 600ms 800ms;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: auto;
-  margin: 0 auto;
-  padding: 0 40vh;
-  height: 100px;
-}
-
-#personal-logo {
-  width: 40%;
-  height: 30%;
-  filter: invert(1);
-}
-
-.nav__link-list {
-  display: flex;
-}
-
-.nav__link {
-  margin: 0 12px;
-}
-
-.nav__link--anchor {
-  font-size: 16px;
-  color: #242424;
-  font-weight: 700;
-}
-
-.fa-adjust {
-  font-size: 20px;
 }
 
 /* 
@@ -325,8 +278,8 @@ nav {
 }
 
 .form__submit {
-  background-color: #f06449;
-  border: 2px solid #f06449;
+  background-color: orange;
+  border: 2px solid orange;
   color: white;
   font-weight: 700;
   width: 100%;
@@ -342,8 +295,8 @@ nav {
 }
 
 .form__submit:active {
-  border-color: #f06449;
-  color: #f06449;
+  border-color: orange;
+  color: orange;
 }
 
 .modal__overlay {
@@ -376,28 +329,6 @@ nav {
   display: flex;
 }
 
-.fa-spinner {
-  -webkit-animation: spinner 750ms infinite linear;
-          animation: spinner 750ms infinite linear;
-}
-
-@-webkit-keyframes spinner {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes spinner {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 .modal__exit {
   position: absolute;
   top: 30px;
@@ -438,7 +369,7 @@ nav {
 }
 
 .social__link {
-  background-color: #f06449;
+  background-color: orange;
   color: #fff;
   padding: 6px;
   width: 32px;
@@ -466,6 +397,46 @@ nav {
   box-shadow: 0 12px 30px 0 rgba(0, 0, 0, 0.28);
 }
 
+/*
+
+NAVIGATION 
+
+*/
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: auto;
+  margin: 0 auto;
+  padding: 0 40vh;
+  height: 100px;
+}
+
+#personal-logo {
+  width: 40%;
+  height: 30%;
+  filter: invert(1);
+}
+
+.nav__link-list {
+  display: flex;
+}
+
+.nav__link {
+  margin: 0 12px;
+}
+
+.nav__link--anchor {
+  font-size: 16px;
+  color: #242424;
+  font-weight: 700;
+}
+
+.fa-adjust {
+  font-size: 20px;
+}
+
 /* 
 
 	PROJECTS 
@@ -475,7 +446,6 @@ nav {
   text-align: center;
   font-size: 48px;
   margin-bottom: 60px;
-  color: #fff;
 }
 
 .project {
@@ -485,6 +455,7 @@ nav {
 .project__img {
   width: 100%;
   transition: all 600ms ease;
+  max-height: 600px;
 }
 
 .project__wrapper {
@@ -492,6 +463,99 @@ nav {
   border-radius: 20px;
   box-shadow: 0 20px 80px 0 rgba(0, 0, 0, 0.45);
   overflow: hidden;
+}
+
+.project__wrapper:hover .project__description {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+.project__wrapper:hover .project__img {
+  transform: scale(1.07);
+  filter: blur(5px);
+}
+
+.project__description {
+  position: absolute;
+  top: 50%;
+  left: 90px;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: opacity 300ms, transform 450ms ease;
+  color: white;
+  max-width: 550px;
+}
+
+.project__wrapper:hover .project__wrapper--bg {
+  opacity: 0.7;
+  visibility: visible;
+}
+
+.project__wrapper--bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1c1d25;
+  opacity: 0;
+  transition: all 450ms ease;
+  visibility: hidden;
+}
+
+.project__description--title {
+  font-size: 40px;
+}
+
+.project__description--sub-title {
+  margin-top: 8px;
+}
+
+.project__description--link {
+  color: white;
+  font-size: 20px;
+  margin-right: 16px;
+}
+
+.project__description--para {
+  margin: 16px 0;
+}
+
+/* 
+
+	CREATE PROJECTS 
+
+*/
+.form {
+  display: grid;
+  grid-auto-rows: -webkit-max-content;
+  grid-auto-rows: max-content;
+}
+
+.form-group {
+  max-width: 41.66666667%;
+  min-width: 10%;
+  margin: 2% 0;
+}
+
+#input-description {
+  min-width: 15%;
+  min-height: 60px;
+}
+
+.form-label {
+  color: #242424;
+}
+
+.btn {
+  margin-top: 3%;
+}
+
+.removeBG {
+  background: none;
+  border: none;
+  color: black;
+  padding-left: 0;
 }
 
 /* 
@@ -587,6 +651,61 @@ nav {
     width: 100%;
   }
 }
+/* 
+
+  FOOTER 
+
+*/
+footer {
+  position: relative;
+  background-color: #242424;
+  display: flex;
+  padding: 0.6% 0;
+}
+
+.footer__row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer__logo--img {
+  width: 70px;
+  filter: invert(1);
+}
+
+.footer__social--list {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: space-around;
+  margin: 28px 0;
+}
+
+.footer__social--link,
+.footer__copyright {
+  color: white;
+}
+
+.footer__logo--popper {
+  position: absolute;
+  right: 0;
+  top: 16px;
+  font-weight: 700;
+  opacity: 0;
+  transition: all 300ms ease;
+  color: white;
+}
+
+.footer__anchor {
+  position: relative;
+}
+
+.footer__anchor:hover .footer__logo--popper {
+  transform: translateX(60px);
+  opacity: 1;
+}
+
 /* Small phones */
 @media (max-width: 480px) {
   .title {
