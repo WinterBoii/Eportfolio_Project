@@ -4,24 +4,10 @@
 	
 */
 
-
-.container {
-	padding: 50px 0;
-	width: 100%;
-}
-
-.row {
-	width: 100%;
-	max-width: 1100px;
-	margin: 0 auto;
-	padding: 0 12px;
-}
-
 .section__title {
 	text-align: center;
 	font-size: 48px;
 	margin-bottom: 60px;
-	z-index: 5;
 }
 
 .project {
@@ -31,6 +17,7 @@
 .project__img {
 	width: 100%;
 	transition: all 600ms ease;
+	max-height: 600px;
 }
 
 .project__wrapper {
@@ -52,13 +39,13 @@
 
 .project__description {
 	position: absolute;
-	top: 50%;
-	left: 90px;
-	transform: translateY(100%);
-	opacity: 0;
-	transition: opacity 300ms, transform 450ms ease;
-	color: white;
-	max-width: 570px;
+  top: 50%;
+  left: 90px;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: opacity 300ms, transform 450ms ease;
+  color: white;
+  max-width: 550px;
 }
 
 .project__wrapper:hover .project__wrapper--bg {
@@ -119,5 +106,12 @@
 }
 
 .btn {
-	margin-top: 5%;
+	margin-top: 3%;
+}
+
+.removeBG {
+	background: none;
+	border: none;
+	color: white;
+	padding-left: 0;;
 }

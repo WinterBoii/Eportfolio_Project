@@ -1,30 +1,52 @@
 <section id="create-project">
 	<div class="container">
 		<div class="row">
-			<h1 class="section__title">Create Project</h1>
-			<form action="/views/createProject" method="post" class="form">
+			<h1 class="section__title">Create <span class="orange">Project</span></h1>
+			<form
+				action="/views/createProject"
+				enctype="multipart/form-data"
+				method="post"
+				class="form"
+			>
 				<div class="form-group col-5">
-					<label class="form-label pName" for="form-input">Title</label>
-					<input class="form-input" type="text" placeholder="Name" />
+					<label class="form-label" for="form-input">Title</label>
+					<input
+						class="form-input"
+						type="text"
+						placeholder="Project name"
+						name="title"
+					/>
 				</div>
 				<div class="form-group col-5">
-					<label class="form-label pName" for="form-input">Subtitle</label>
-					<input class="form-input" type="text" placeholder="Name" />
+					<label class="form-label" for="form-input">Subtitle</label>
+					<input
+						class="form-input"
+						type="text"
+						placeholder="Project subtitle"
+						name="subtitle"
+					/>
 				</div>
 				<div class="form-group col-5">
 					<label class="form-label" for="input-description">Description</label>
 					<textarea
 						class="form-input"
 						id="input-description"
-						placeholder="Textarea"
+						placeholder="Type project description"
 						rows="5"
+						name="description"
 					></textarea>
 				</div>
-				<div class="form-group ">
-					<label class="form-label pName" for="form-input">Background Image</label>
-					<input class="form-input file" type="File" placeholder="File" />
+				<div class="form-group">
+					<label class="form-label" for="form-input">Background Image</label>
+					<input
+						class="form-input file removeBG"
+						type="File"
+						placeholder="Image"
+						name="image"
+						accept="image/*"
+					/>
 				</div>
-				<button class="btn btn-primary col-1">Submit</button>
+				<button type="submit" class="btn btn-primary col-1">Submit</button>
 			</form>
 		</div>
 	</div>
