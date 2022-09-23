@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
 
-$primary-color: orange ;
+$primary-color: #2C3333;
+$secondary-color: #242424;
+$text-primary: E7F6F2;
+$text-secondary: E7F6F2;
+$hero-text: #FF4C29;
 
 * {
 	margin: 0;
@@ -38,7 +42,7 @@ a {
 }
 
 input:focus, textarea:focus {
-		border-color: $primary-color;
+		border-color: $secondary-color;
 }
 
 
@@ -47,7 +51,7 @@ button {
 }
 
 .orange {
-		color: $primary-color !important
+		color: $hero-text !important
 }
 
 section {
@@ -133,17 +137,17 @@ input:focus, textarea:focus {
 }
 
 .link__hover-effect--white:after {
-	background-color: $primary-color;
+	background-color: $hero-text;
 }
 
 .link__hover-effect--black:after {
-	background-color: $primary-color;
+	background-color: $hero-text;
 }
 
 nav, .scroll, .header {
 		opacity: 1;
 		visibility: 1;
-		transition: all 600ms 800ms;
+		transition: all 300ms ;
 }
 
 .modal--open nav,
@@ -157,25 +161,28 @@ nav, .scroll, .header {
 .dark-theme .title,
 .dark-theme .section__title,
 .dark-theme .section__sub-title,
-.dark-theme .nav__link--anchor,
-.dark-theme .fa-adjust,
 .dark-theme .header__para,
 .dark-theme .form-label,
 .dark-theme .removeBG
 {
-  color: white;
+  color: $text-secondary;
 }
 .dark-theme section {
-  background-color: #242424;
+  background-color: $primary-color;
+}
+
+.dark-theme .nav__link--anchor,
+.dark-theme .logo-title,
+.dark-theme .fa-adjust {
+  color: $text-primary;
 }
 .dark-theme #personal-logo {
   filter: none;
 }
 
-
 .dark-theme .mail__btn {
-  background-color: white;
-  color: #242424;
+  background-color: #404040;
+  color: white;
 }
 
 
@@ -262,7 +269,7 @@ nav, .scroll, .header {
 
 .modal__contact {
   transform: translateX(110%);
-  background-color: #242424;
+  background-color: $secondary-color;
   color: white;
 }
 
@@ -285,25 +292,25 @@ nav, .scroll, .header {
 }
 
 .form__submit {
-  background-color: $primary-color;
-  border: 2px solid $primary-color;
+  background-color: $hero-text;
+  border: 2px solid $secondary-color;
   color: white;
   font-weight: 700;
   width: 100%;
   max-width: 240px;
   padding: 12px 24px;
-  font-size: 20px;
+  font-size: 2em;
   transition: all 300ms ease;
 }
 
 .form__submit:hover {
   border-color: #fff;
-  background-color: transparent;
+  background-color: $primary-color;
 }
 
 .form__submit:active {
-  border-color: $primary-color;
-  color: $primary-color;
+  border-color: $secondary-color;
+  color: $secondary-color;
 }
 
 .modal__overlay {
@@ -377,8 +384,8 @@ nav, .scroll, .header {
 }
 
 .social__link {
-		background-color: $primary-color;
-		color: #fff;
+		background-color: $hero-text;
+		color: $text-secondary;
 		padding: 6px;
 		width: 32px;
 		height: 32px;
@@ -396,7 +403,7 @@ nav, .scroll, .header {
 	font-size: 32px;
 	border-radius: 50%;
 	border: none;
-	background-color: #242424;
+	background-color: $secondary-color;
 	color: white;
 	position: fixed;
 	bottom: 32px;
@@ -418,7 +425,7 @@ nav {
 		max-width: auto;
 		margin: 0 auto;
 		padding: 0 40vh;
-		height: 100px;
+		height: 10vh;
 }
 
 #personal-logo {
@@ -427,7 +434,7 @@ nav {
 		filter: invert(1);
 }
 
-.nav__link-list {
+.nav__link--list {
 		display: flex;
 }
 
@@ -537,6 +544,13 @@ nav {
 	
 */
 
+#create-project {
+  .container {
+    height: 100vh;
+    padding-bottom: 0;
+  }
+}
+
 .form {
 	display: grid;
 	grid-auto-rows: max-content;
@@ -568,70 +582,6 @@ nav {
 	padding-left: 0;;
 }
 
-/* 
-
-	SHAPES
-
-	shapes on the first row 
-	height = 15vh
-	
-	shapes on the second row 
-	height = 50vh
-	
-	shapes on the third row 
-	height = 80vh
-
-	shapes on the first column
-	width = 5vw
-	
-	shapes on the second column
-	width = 50vw
-
-	shapes on the third column
-	width = 80vw
-
-*/
-.shape {
-  position: fixed;
-}
-.shape--0 {
-  top: 15vh;
-  left: 5vw;
-}
-.shape--1 {
-  top: 15vh;
-  left: 50vw;
-}
-.shape--2 {
-  top: 15vh;
-  left: 80vw;
-}
-.shape--3 {
-  top: 50vh;
-  left: 5vw;
-}
-.shape--4 {
-  top: 50vh;
-  left: 50vw;
-}
-.shape--5 {
-  top: 50vh;
-  left: 80vw;
-}
-.shape--6 {
-  top: 80vh;
-  left: 5vw;
-}
-.shape--7 {
-  top: 80vh;
-  left: 50vw;
-}
-.shape--8 {
-  top: 80vh;
-  left: 80vw;
-}
-
-
 /* Small phones, tablets, large smart phones */
 @media (max-width: 768px) {
   .title {
@@ -662,7 +612,7 @@ nav {
 
 footer {
   position: relative;
-  background-color: #242424;
+  background-color: $secondary-color;
   display: flex;
   padding: 0.6% 0;
 }
@@ -736,4 +686,40 @@ footer {
   .modal__half {
     padding: 40px;
   }
+}
+
+.btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #fff;
+  border: .05rem solid #5755d9;
+  border-radius: .1rem;
+  color: #5755d9;
+  cursor: pointer;
+  display: inline-block;
+  font-size: .8rem;
+  height: 1.8rem;
+  line-height: 1.2rem;
+  outline: none;
+  padding: .25rem .4rem;
+  text-align: center;
+  text-decoration: none;
+  transition: background .2s, border .2s, box-shadow .2s, color .2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.btn.btn-primary {
+  background: #5755d9;
+  border-color: #4b48d6;
+  color: #fff;
+}
+
+.col-1 {
+  width: 8.33333333%;
 }
