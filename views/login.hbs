@@ -1,0 +1,22 @@
+<section id="login__page">
+	<div class="centered">
+		<div class="row">
+			<h1 class="section__title"><span class="orange">Login</span></h1>
+			{{#if error}}
+			<h5 class="text-error">{{error}}</h5>
+			{{/if}}
+			<form action="" method="POST">
+				<input type="hidden" name="_csrf" value="{{csrfTokenFunc}}" />
+				<div class="form-group">
+					<label class="form-label" for="input-example-1">Username</label>
+					<input name="username" class="form-input" type="username" placeholder="Email" />
+				</div>
+				<div class="form-group">
+					<label class="form-label" for="input-example-1">Password</label>
+					<input class="form-input" type="password" placeholder="Password" name="password" />
+				</div>
+				<button type="submit" class="btn btn-primary input-group-btn" value="login">Login</button>
+			</form>
+		</div>
+	</div>
+</section>
