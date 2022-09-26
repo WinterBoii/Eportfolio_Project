@@ -2,49 +2,23 @@
 	<div class="container">
 		<div class="row">
 			<h1 class="section__title">Create <span class="orange">Project</span></h1>
-			<form
-				action="/views/createProject"
-				enctype="multipart/form-data"
-				method="post"
-				class="form"
-			>
+			<form action="/createProject" method="POST" enctype="multipart/form-data" class="form">
 				<div class="form-group col-5">
 					<label class="form-label" for="form-input">Title</label>
-					<input
-						class="form-input"
-						type="text"
-						placeholder="Project name"
-						name="title"
-					/>
+					<input class="form-input" type="text" placeholder="Project name" name="title" required />
 				</div>
 				<div class="form-group col-5">
 					<label class="form-label" for="form-input">Subtitle</label>
-					<input
-						class="form-input"
-						type="text"
-						placeholder="Project subtitle"
-						name="subtitle"
-					/>
+					<input class="form-input" type="text" placeholder="Project subtitle" name="subtitle" required />
 				</div>
 				<div class="form-group col-5">
 					<label class="form-label" for="input-description">Description</label>
-					<textarea
-						class="form-input"
-						id="input-description"
-						placeholder="Type project description"
-						rows="5"
-						name="description"
-					></textarea>
+					<textarea class="form-input" id="input-description" placeholder="Type project description" rows="5"
+						name="description"></textarea>
 				</div>
 				<div class="form-group">
 					<label class="form-label" for="form-input">Background Image</label>
-					<input
-						class="form-input file removeBG"
-						type="File"
-						placeholder="Image"
-						name="image"
-						accept="image/*"
-					/>
+					<input class="form-input file removeBG" type="File" placeholder="Image" name="image" required />
 				</div>
 				<button type="submit" class="btn btn-primary col-1">Submit</button>
 			</form>

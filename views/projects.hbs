@@ -2,36 +2,59 @@
 	<div class="container">
 		<div class="row">
 			{{#if projects.length}}
-				<h1 class="section__title">
-					Here are some of my
-					<span class="orange">projects</span>
-				</h1>
-				<ul class="project__list">
-					{{#each projects}}
-						<li class="project">
-							<div class="project__wrapper">
-								<img class="project__img" src="/{{bg}}" />
-								<div class="project__wrapper--bg"></div>
-								<div class="project__description">
-									<h3 class="project__description--title">
-										{{title}}
-									</h3>
-									<h4 class="project__description--sub-title">
-										{{sub_title}}
-									</h4>
-									<p class="project__description--para">
-										{{description}}
-									</p>
-								</div>
-							</div>
-						</li>
-					{{/each}}
-				</ul>
+			<h1 class="section__title">
+				Here are some of my
+				<span class="orange">projects</span>
+			</h1>
+			<ul class="project__list">
+				{{#each projects}}
+				<li class="project">
+					<div class="project__wrapper">
+						<img class="project__img" src="/{{bg}}" />
+						<div class="project__wrapper--bg"></div>
+						<div class="project__description">
+							<h3 class="project__description--title">
+								{{title}}
+							</h3>
+							<h4 class="project__description--sub-title">
+								{{sub_title}}
+							</h4>
+							<p class="project__description--para">
+								{{description}}
+							</p>
+						</div>
+					</div>
+					{{#if isLoggedIn}}
+					<label for="createProject">
+						<button class="btn btn-secondary"><a href="/createProject">Add Project</a></button>
+					</label>
+					<label for="editProject">
+						<button class="btn btn-secondary"><a href="/editProject">Edit Project</a></button>
+					</label>
+					<label for="deleteProject">
+						<button class="btn btn-secondary"><a href="/deleteProject">Remove Project</a></button>
+					</label>
+					{{/if}}
+				</li>
+				{{/each}}
+			</ul>
 			{{else}}
-				<h1 class="section__title">
-					Projects will be added
-					<span class="orange">soon!</span>
-				</h1>
+			<h1 class="section__title">
+				Projects will be added
+				<span class="orange">soon!</span>
+			</h1>
+			{{#if isLoggedIn}}
+			<label for="createProject">
+				<button class="btn btn-primary"><a href="/createProject">Add Project</a></button>
+			</label>
+			<label for="editProject">
+				<button class="btn btn-primary"><a href="/editProject">Edit Project</a></button>
+			</label>
+			<label for="deleteProject">
+				<button class="btn btn-primary"><a href="/deleteProject">Remove Project</a></button>
+			</label>
+			{{/if}}
+			</li>
 			{{/if}}
 		</div>
 	</div>
