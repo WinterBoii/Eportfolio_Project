@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3')
-const database = new sqlite3.Database("portfolio-database.database")
-const logindb= new sqlite3.Database("logindb.database")
+const database = new sqlite3.Database('portfolio-database.db')
+const logindb = new sqlite3.Database("login-database.db")
 
 database.run(`
   CREATE TABLE IF NOT EXISTS  projects (
@@ -20,10 +20,10 @@ logindb.run(`
   )
 `)
 
-exports.createProject = function(title, subtitle, description, bgImage,callback) {
+exports.createProject = function(title, subtitle, desc, bgImage, callback) {
     const query= "INSERT INTO  projects (title, subtitle, description, bgImage) VALUES (?,?,?,?)"
     
-    const values =[title, subtitle, description, bgImage] 
+    const values =[title, subtitle, desc, bgImage] 
 
     database.run(query, values, function(error){
         callback(error)
@@ -32,10 +32,10 @@ exports.createProject = function(title, subtitle, description, bgImage,callback)
 }
 
 exports.getAllProjects = function(callback) {
-  const query = " SELECT * FROM projects ORDER BY id  DESC;"
+  const query = "SELECT * FROM projects ORDER BY id DESC"
     
-  database.all(query,function(error, Projects){
-      callback(error, Projects)
+  database.all(query, function(error, projects){
+      callback(error, projects)
   })
 }
 
@@ -47,4 +47,15 @@ exports.getProject = function (id, callback) {
         callback(error, result)
 
     })
+}
+
+exports.deleteProjectById = (req, res) => {
+  const query = "DELETE FROM projects WHERE id =?"
+  const values = [req.params.id]
+  
+  database.run(query, values, function (error) {
+    res.status(200).send({
+      message: "Project deleted",
+    })
+  })
 }

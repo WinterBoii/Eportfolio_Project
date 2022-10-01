@@ -20,10 +20,17 @@ p {
 }
 
 a {
+  color: #242424;
   text-decoration: none !important;
 }
+a::before {
+  color: #242424 !important;
+}
 a:visited {
-  color: 242424;
+  color: #242424;
+}
+a:hover {
+  color: inherit;
 }
 
 .title {
@@ -47,7 +54,7 @@ button {
 }
 
 .orange {
-  color: 1FAB89 !important;
+  color: #1FAB89 !important;
 }
 
 section {
@@ -58,8 +65,8 @@ section {
 input,
 textarea {
   width: 100%;
-  background-color: DDFFBC;
-  color: 242424;
+  background-color: #DDFFBC;
+  color: #242424;
   outline: none;
   border: 3px solid #c0c4cc;
   border-top: none;
@@ -87,7 +94,7 @@ textarea:hover {
 
 input:focus,
 textarea:focus {
-  border-color: 1FAB89;
+  border-color: #1FAB89;
 }
 
 .row {
@@ -133,11 +140,11 @@ textarea:focus {
 }
 
 .link__hover-effect--white:after {
-  background-color: 1FAB89;
+  background-color: #1FAB89;
 }
 
 .link__hover-effect--black:after {
-  background-color: 1FAB89;
+  background-color: #1FAB89;
 }
 
 nav,
@@ -163,7 +170,7 @@ nav,
 .dark-theme .header__para,
 .dark-theme .form-label,
 .dark-theme .removeBG {
-  color: 242424;
+  color: #242424;
 }
 
 .dark-theme section {
@@ -173,7 +180,7 @@ nav,
 .dark-theme .nav__link--anchor,
 .dark-theme .logo-title,
 .dark-theme .fa-adjust {
-  color: 242424;
+  color: #242424;
 }
 
 .dark-theme #personal-logo {
@@ -270,23 +277,23 @@ nav,
 
 .modall__contact {
   transform: translateX(110%);
-  background-color: DDFFBC;
-  color: 242424;
+  background-color: #DDFFBC;
+  color: #242424;
 }
 
 .modall__title {
-  color: 242424;
+  color: #242424;
   font-size: 26px;
 }
 
 .modall__sub-title {
-  color: 242424;
+  color: #242424;
   margin: 12px 0 24px 0;
   font-size: 14px;
 }
 
 .modall__para {
-  color: 242424;
+  color: #242424;
   margin-bottom: 12px;
   line-height: 1.75;
 }
@@ -296,7 +303,7 @@ nav,
 }
 
 .form__submit {
-  background-color: 1FAB89;
+  background-color: #1FAB89;
   border: 2px solid #FEFFDE;
   color: white;
   font-weight: 700;
@@ -387,8 +394,8 @@ nav,
 }
 
 .social__link {
-  background-color: 1FAB89;
-  color: 242424;
+  background-color: #1FAB89;
+  color: #242424;
   padding: 6px;
   width: 32px;
   height: 32px;
@@ -425,10 +432,10 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: auto;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 40vh;
-  height: 10vh;
+  padding: 0 10vh;
+  height: 10%;
 }
 
 #personal-logo {
@@ -455,15 +462,25 @@ nav {
   font-size: 20px;
 }
 
+@media (max-width: 768px) {
+  nav {
+    padding: 0 20%;
+  }
+}
+@media (max-width: 420px) {
+  nav {
+    padding: 0 10%;
+  }
+  nav #contact_nav {
+    position: absolute;
+    visibility: hidden;
+  }
+}
 /* 
 
 	PROJECTS 
 
 */
-#projects {
-  height: 90vh;
-}
-
 .section__title {
   text-align: center;
   font-size: 48px;
@@ -506,6 +523,13 @@ nav {
   transition: opacity 300ms, transform 450ms ease;
   color: white;
   max-width: 550px;
+}
+
+.crud {
+  display: block;
+  margin-top: 10%;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .project__wrapper:hover .project__wrapper--bg {
@@ -597,10 +621,23 @@ nav {
   padding-bottom: 0;
 }
 
+.create__img__wrapper {
+  position: absolute;
+  width: 50%;
+  overflow: visible;
+  top: 25%;
+  left: 35%;
+}
+.create__img__wrapper .create__img {
+  scale: 0.7;
+}
+
 .form {
   display: grid;
   grid-auto-rows: -webkit-max-content;
   grid-auto-rows: max-content;
+  margin-right: 0%;
+  width: 80%;
 }
 
 .form-group {
@@ -610,7 +647,7 @@ nav {
 }
 
 #input-description {
-  min-width: 15%;
+  min-width: 20%;
   min-height: 60px;
 }
 
@@ -649,16 +686,35 @@ nav {
   .modall__half {
     width: 100%;
   }
+  .create__img__wrapper {
+    visibility: hidden;
+  }
+  .form {
+    margin: auto;
+    width: 50%;
+  }
+  .form .form-group {
+    margin: auto;
+    width: 50%;
+  }
+  .form .btn.btn-primary {
+    margin: auto;
+    width: 50%;
+  }
 }
+.icon-cross {
+  color: #1FAB89;
+}
+
 /* 
 
   FOOTER 
 
 */
 footer {
-  position: relative;
   background-color: #FEFFDE;
-  display: flex;
+  display: block;
+  width: 100%;
   padding: 0.6% 0;
 }
 
@@ -683,7 +739,7 @@ footer {
 
 .footer__social--link,
 .footer__copyright {
-  color: 242424;
+  color: #242424;
 }
 
 .footer__logo--popper {
@@ -693,7 +749,7 @@ footer {
   font-weight: 700;
   opacity: 0;
   transition: all 300ms ease;
-  color: 242424;
+  color: #242424;
 }
 
 .footer__anchor {
@@ -739,7 +795,7 @@ footer {
   background: #fff;
   border: 0.05rem solid #5755d9;
   border-radius: 0.1rem;
-  color: #5755d9;
+  color: #242424;
   cursor: pointer;
   display: inline-block;
   font-size: 0.8rem;
@@ -759,9 +815,11 @@ footer {
 }
 
 .btn.btn-primary {
-  background: #5755d9;
-  border-color: #4b48d6;
-  color: #fff;
+  scale: 1.2;
+  background: #1FAB89 !important;
+  border-color: #242424 !important;
+  color: #fff !important;
+  margin-right: 5%;
 }
 
 .col-1 {

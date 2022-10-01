@@ -6,17 +6,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Winter-Eport</title>
 	<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
 	<link rel="stylesheet" href="public/css/styles.css" />
-	<script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/1c16db972c.js" crossorigin="anonymous"></script>
 	<script src="/public/anim.js"></script>
-
 </head>
 
 <body onload="toggleContrast()">
 	<section id="landing-page">
 		<nav>
 			<figure>
-				<h1 class="logo-title">M.W</h1>
+				<a href="/">
+					<h1 class="logo-title">M.W</h1>
+				</a>
 			</figure>
 			<ul class="nav__link--list">
 				<li class="nav__link">
@@ -34,7 +37,7 @@
           ">Projects</a>
 				</li>
 				<li class="nav__link" onclick="toggleModal()">
-					<a href="#" class="
+					<a id="contact_nav" href="#" class="
             nav__link--anchor
             link__hover-effect
             link__hover-effect--black
@@ -50,13 +53,13 @@
 				</li>
 				{{else}}
 				<li class="nav__link click">
-					<form action="/logout" method="POST">
-						{{!-- <input type="hidden" name="_csrf" value="{{csrfTokenFunc}}"> --}}
-						<input class="nav__link--anchor
-							link__hover-effect
-							link__hover-effect--black" id="footer" type="submit" value="Logout">
-					</form>
-					{{/unless}}
+					<a href="/logout" class="
+								            nav__link--anchor
+								            link__hover-effect
+								            link__hover-effect--black
+								          ">Logout</a>
+				</li>
+				{{/unless}}
 			</ul>
 		</nav>
 		<div class="modall">
@@ -66,9 +69,16 @@
 				<p class="modall__para">
 					I'm a 22 year-old <b class="orange">software engineering</b> student with no-experience developing
 					websites for tech companies like <b class="orange">Google</b> and <b class="orange">Facebook</b>.
+					Below are my technology stacks:
 				</p>
 				<div class="modall__languages">
 					<figure class="modall__language">
+						<img class="modall__language--img"
+							src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/HTML5_Badge.svg/240px-HTML5_Badge.svg.png"
+							alt="HTML logo">
+						<span class="language__name">HTML</span>
+					</figure>
+					{{!-- <figure class="modall__language">
 						<img class="modall__language--img"
 							src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/HTML5_Badge.svg/240px-HTML5_Badge.svg.png"
 							alt="HTML logo">
@@ -83,15 +93,11 @@
 						<img class="modall__language--img" src="https://cdn.iconscout.com/icon/free/png-256/javascript-1-225993.png"
 							alt="JS logo">
 						<span class="language__name">JavaScript</span>
-					</figure>
-					{{!-- <figure class="modall__language">
-						<img class="modall__language--img" src="" alt="C++ logo">
-						<span class="language__name">C++</span>
 					</figure> --}}
 				</div>
 			</div>
 			<div class="modall__half modall__contact">
-				<i class="fas fa-times modall__exit click" onclick="toggleModal()"></i>
+				<i class="icon icon-cross modall__exit click" onclick="toggleModal()"></i>
 				<h3 class="modall__title modall__title--contact">
 					Let's have a chat!
 				</h3>
@@ -123,12 +129,12 @@
 				</div>
 			</div>
 		</div>
-		<main>{{{body}}}</main>
+		{{{body}}}
 		{{#unless hideFooter}}
 		<footer>
 			<a href="#">
 				<button class="mail__btn click" onclick="toggleModal()">
-					<i class="fas fa-envelope"></i>
+					<i class="icon icon-message"></i>
 				</button>
 			</a>
 			<div class="container">
@@ -139,7 +145,7 @@
 						</figure>
 						<span class="footer__logo--popper">
 							Top
-							<i class="fas fa-arrow-up"></i>
+							<i class="icon icon-arrow-up"></i>
 						</span>
 					</a>
 					<div class="footer__social--list">
@@ -156,13 +162,6 @@
 			          link__hover-effect--white
 			        ">
 							LinkedIn
-						</a>
-						<a href="#" onclick="toggleModal()" class="
-			          footer__social--link
-			          link__hover-effect
-			          link__hover-effect--white
-			        ">
-							Contact
 						</a>
 						<a href="public/assets/Resume.pdf" target="_blank" class="
 			          footer__social--link

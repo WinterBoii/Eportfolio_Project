@@ -1,16 +1,16 @@
-const express = require("express");
-const expressHandlebars = require("express-handlebars");
-const bodyParser = require("body-parser");
+const express = require("express")
+const expressHandlebars = require("express-handlebars")
+const bodyParser = require("body-parser")
 const expressSession = require('express-session')
 const SQLiteStore = require('connect-sqlite3')(expressSession)
-const path = require("path");
-const app = express();
+const path = require("path")
+const app = express()
 const db = require('./db') 
 
 const projectsRouter = require("./routers/projects");
 
 app.use(expressSession({
-  secret: "winter123",
+  secret: "osjdioajsdioajshdioqjaqipowrh1moiiaiohsjdj",
   saveUninitialized: false,
   resave: false,
   store: new SQLiteStore({
@@ -18,9 +18,6 @@ app.use(expressSession({
   })
 }))
 
-app.use(bodyParser.urlencoded({
-	extended: false
-}))
 
 app.use('/', projectsRouter)
 
@@ -35,17 +32,30 @@ app.use(function(request, response, next){
 	next()
 })
 
+app.use(
+	express.urlencoded({
+		extended: false
+	})
+)
+
 
 // define the home page route
-app.get('/', (req, res) => {
-  res.render('start.hbs')
+app.get('/', function(request, response){
+	
+	const model = {
+		session: request.session
+	}
+	
+	response.render('start.hbs', model)
 })
-
 // define the project route
 app.get('/projects', (req, res) => {
 
-  db.getAllProjects((err, Project) => { 
-    res.render('projects.hbs')
+  db.getAllProjects((err, projects) => { 
+    const model = {
+      projects: projects
+    }
+    res.render('projects.hbs', model)
   })
 })
 
@@ -60,9 +70,11 @@ app.get('/createProject', (req, res) => {
   }
 })
 
+
+
 // define the contact route
 app.get('/contact', (req, res) => {
-  res.render('contact.hbs', module)
+  res.render('contact.hbs')
 })
 
 app.get('/login', (req, res) => {
@@ -101,14 +113,16 @@ app.post('/login', (req, res) => {
   }
 })
 
-app.post("/logout", function(request, response){
+app.get("/logout", function(request, response){
   request.session.isLoggedIn = false
   response.redirect("/")
 })
 
-app.use("/public", express.static(path.join(__dirname, "/public")));
+app.use("/public", express.static(path.join(__dirname, "/public")))
 
 
 app.use(projectsRouter);
 
-app.listen(3000);
+const port = 3000
+
+app.listen(port)

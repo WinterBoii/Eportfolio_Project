@@ -1,7 +1,7 @@
 <section id="projects">
 	<div class="container">
+		{{#if projects.length}}
 		<div class="row">
-			{{#if projects.length}}
 			<h1 class="section__title">
 				Here are some of my
 				<span class="orange">projects</span>
@@ -10,31 +10,28 @@
 				{{#each projects}}
 				<li class="project">
 					<div class="project__wrapper">
-						<img class="project__img" src="/{{bg}}" />
+						<img class="project__img" src="/public/Images/{{bgImage}}" />
 						<div class="project__wrapper--bg"></div>
 						<div class="project__description">
 							<h3 class="project__description--title">
 								{{title}}
 							</h3>
 							<h4 class="project__description--sub-title">
-								{{sub_title}}
+								{{subtitle}}
 							</h4>
 							<p class="project__description--para">
 								{{description}}
 							</p>
 						</div>
 					</div>
-					{{#if isLoggedIn}}
-					<label for="createProject">
-						<button class="btn btn-secondary"><a href="/createProject">Add Project</a></button>
-					</label>
-					<label for="editProject">
-						<button class="btn btn-secondary"><a href="/editProject">Edit Project</a></button>
-					</label>
-					<label for="deleteProject">
-						<button class="btn btn-secondary"><a href="/deleteProject">Remove Project</a></button>
-					</label>
-					{{/if}}
+					<div class="crud">
+						<form action="/createProject" method="GET">
+							<input class="bg-error" type="submit" value="Create">
+						</form>
+						<form action="/deleteProject/{{projects.id}}" method="POST">
+							<input class="bg-error" type="submit" value="Delete">
+						</form>
+					</div>
 				</li>
 				{{/each}}
 			</ul>
@@ -44,18 +41,19 @@
 				<span class="orange">soon!</span>
 			</h1>
 			{{#if isLoggedIn}}
-			<label for="createProject">
-				<button class="btn btn-primary"><a href="/createProject">Add Project</a></button>
-			</label>
-			<label for="editProject">
-				<button class="btn btn-primary"><a href="/editProject">Edit Project</a></button>
-			</label>
-			<label for="deleteProject">
-				<button class="btn btn-primary"><a href="/deleteProject">Remove Project</a></button>
-			</label>
+			<div class="crud">
+				<form action="/createProject" method="GET">
+					<input class="btn btn-primary" type="submit" value="Create">
+				</form>
+				<form action="/deleteProject/{{this.id}}" method="GET">
+					<input class="btn btn-primary" type="submit" value="Delete">
+				</form>
+				<h1 class="section__title">
+					Projects will be added
+					<span class="orange">soon!</span>
+				</h1>
+			</div>
 			{{/if}}
-			</li>
 			{{/if}}
 		</div>
-	</div>
 </section>
