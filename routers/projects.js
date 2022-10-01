@@ -44,7 +44,7 @@ router.post('/createProject', upload.single('image'), (req, res) => {
 })
 
 //delet a post with a specific id
-router.get('/deleteProject/:id', db.deleteProjectById)
+router.get('/deleteProject/:id', db.deleteProjectById) 
 
 
 // function auth(req, res, next) {
