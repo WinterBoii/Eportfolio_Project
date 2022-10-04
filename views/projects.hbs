@@ -1,7 +1,7 @@
 <section id="projects">
 	<div class="container">
-		{{#if projects.length}}
 		<div class="row">
+			{{#if projects.length}}
 			<h1 class="section__title">
 				Here are some of my
 				<span class="orange">projects</span>
@@ -22,38 +22,43 @@
 							<p class="project__description--para">
 								{{description}}
 							</p>
+							<a href="/projectByID/{{id}}" class="nav__link--anchor link__hover-effect
+								link__hover-effect--black">View Project</a>
 						</div>
 					</div>
-					<div class="crud">
-						<form action="/createProject" method="GET">
-							<input class="bg-error" type="submit" value="Create">
-						</form>
-						<form action="/deleteProject/{{projects.id}}" method="POST">
-							<input class="bg-error" type="submit" value="Delete">
-						</form>
+					{{#if isLoggedIn}}
+					<div class="crud-wrapper">
+						<div class="crud">
+							<form action="/createProject" method="GET" enctype="multipart/form-data">
+								<input class="input-group-btn" type="submit" value="Create">
+							</form>
+							<form action="/deleteProject/{{id}}" method="GET" enctype="multipart/form-data">
+								<input class="input-group-btn" type="submit" value="Delete">
+							</form>
+						</div>
 					</div>
+					{{/if}}
 				</li>
 				{{/each}}
 			</ul>
-			{{else}}
+			{{/if}}
+			{{#else}}
 			<h1 class="section__title">
 				Projects will be added
 				<span class="orange">soon!</span>
 			</h1>
-			{{#if isLoggedIn}}
-			<div class="crud">
-				<form action="/createProject" method="GET">
-					<input class="" type="submit" value="Create">
-				</form>
-				<form action="/deleteProject/{{this.id}}" method="GET">
-					<input class="" type="submit" value="Delete">
-				</form>
-				<h1 class="section__title">
-					Projects will be added
-					<span class="orange">soon!</span>
-				</h1>
+			<div class="crud-wrapper ">
+				{{#if isLoggedIn}}
+				<div class="crud">
+					<form action="/createProject" method="GET" class="centered" enctype="multipart/form-data">
+						<input class="input-group-btn" type="submit" value="Create">
+					</form>
+					<form action="/deleteProject/{{this.id}}" method="GET" class="centered" enctype="multipart/form-data">
+						<input class="input-group-btn" type="submit" value="Delete">
+					</form>
+				</div>
+				{{/if}}
 			</div>
-			{{/if}}
-			{{/if}}
+			{{/else}}
 		</div>
 </section>

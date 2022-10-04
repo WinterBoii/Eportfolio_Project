@@ -39,7 +39,7 @@ exports.getAllProjects = function(callback) {
   })
 }
 
-exports.getProject = function (id, callback) { 
+exports.getProjectByID = function (id, callback) { 
   const query = "SELECT * FROM projects WHERE id = ?"
   const values = [id]
   

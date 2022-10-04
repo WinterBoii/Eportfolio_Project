@@ -36,6 +36,14 @@
             link__hover-effect--black
           ">Projects</a>
 				</li>
+				<li class="nav__link">
+					<a href="/collaboration" class="
+				            nav__link--anchor
+				            link__hover-effect
+				            link__hover-effect--black
+				          ">Collab</a>
+				</li>
+				{{#unless isLoggedIn}}
 				<li class="nav__link" onclick="toggleModal()">
 					<a id="contact_nav" href="#" class="
             nav__link--anchor
@@ -43,7 +51,6 @@
             link__hover-effect--black
           ">Contact</a>
 				</li>
-				{{#unless isLoggedIn}}
 				<li class="nav__link click">
 					<a href="/login" class="
 				            nav__link--anchor

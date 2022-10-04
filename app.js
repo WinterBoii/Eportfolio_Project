@@ -1,6 +1,5 @@
 const express = require("express")
 const expressHandlebars = require("express-handlebars")
-const bodyParser = require("body-parser")
 const expressSession = require('express-session')
 const SQLiteStore = require('connect-sqlite3')(expressSession)
 const path = require("path")
@@ -18,6 +17,7 @@ app.use(expressSession({
   })
 }))
 
+app.use("/public", express.static(path.join(__dirname, "/public")))
 
 app.use('/', projectsRouter)
 
@@ -34,7 +34,7 @@ app.use(function(request, response, next){
 
 app.use(
 	express.urlencoded({
-		extended: false
+		extended: true
 	})
 )
 
@@ -50,10 +50,20 @@ app.get('/', function(request, response){
 })
 // define the project route
 app.get('/projects', (req, res) => {
-
+  if (req.session.isLoggedIn) {
+      const model = {
+        isLoggedIn: true,
+      }
+    }
   db.getAllProjects((err, projects) => { 
-    const model = {
-      projects: projects
+    if (err) {
+      console.log(err)
+      return
+    }
+    else {
+      model = {
+          projects: projects
+        }
     }
     res.render('projects.hbs', model)
   })
@@ -70,11 +80,14 @@ app.get('/createProject', (req, res) => {
   }
 })
 
-
-
 // define the contact route
 app.get('/contact', (req, res) => {
   res.render('contact.hbs')
+})
+
+// define the collaboration route
+app.get('/collaboration', (req, res) => { 
+  res.render('collaboration.hbs')
 })
 
 app.get('/login', (req, res) => {
@@ -117,11 +130,6 @@ app.get("/logout", function(request, response){
   request.session.isLoggedIn = false
   response.redirect("/")
 })
-
-app.use("/public", express.static(path.join(__dirname, "/public")))
-
-
-app.use(projectsRouter);
 
 const port = 3000
 
