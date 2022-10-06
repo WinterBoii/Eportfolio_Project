@@ -21,19 +21,19 @@ function toggleContrast() {
   }
 }
 
-function contact(event) {
-  event.preventDefault()
-  const loading = document.querySelector(".modall__overlay--loading")
-  const success = document.querySelector(".modall__overlay--success")
-  loading.classList += " modall__overlay--visible"
-    .then(() => {
-      loading.classList.remove("modall__overlay--visible")
-      success.classList += " modall__overlay--visible"
-    })
-    .catch(() => {
-      loading.classList.remove("modall__overlay--visible")
-      alert(
-        "The email service is temporarily unavailable. Please contact me directly on email@email.com"
-      )
-    })
-}
+// function contact(event) {
+//   event.preventDefault()
+//   const loading = document.querySelector(".modall__overlay--loading")
+//   const success = document.querySelector(".modall__overlay--success")
+//   loading.classList += " modall__overlay--visible"
+//     .then(() => {
+//       loading.classList.remove("modall__overlay--visible")
+//       success.classList += " modall__overlay--visible"
+//     })
+//     .catch(() => {
+//       loading.classList.remove("modall__overlay--visible")
+//       alert(
+//         "The email service is temporarily unavailable. Please contact me directly on email@email.com"
+//       )
+//     })
+// }

@@ -282,6 +282,7 @@ nav,
 }
 
 .language__name {
+  color: $text-primary;
   position: absolute;
   bottom: -10px;
   transform: scale(0);
@@ -696,13 +697,21 @@ nav {
   display: grid;
   grid-auto-rows: max-content;
   margin-right: 0%;
-  width: 80%;
+  width: 100%;
+
+  input {
+    margin-bottom: 5px;
+  }
+
+  .btn {
+    margin-left: 1%;
+  }
 }
 
 .form-group {
   max-width: 41.66666667%;
-  min-width: 10%;
-  margin: 2% 0;
+  min-width: 14%;
+  margin: 1% 0;
 }
 
 #input-description {
@@ -803,7 +812,7 @@ nav {
 
 .team-head-text {
   font-size: 48px;
-  font-weight: 900;
+  font-weight: normal;
   text-align: center;
 }
 
@@ -866,6 +875,14 @@ nav {
 
 .team-member-image {
   max-width: 100%;
+}
+
+.btn-wrapper {
+  max-width: 300px !important;
+
+  .btn {
+    width: 150px;
+  }
 }
 
 @media (max-width: 500px) {

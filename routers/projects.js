@@ -2,11 +2,14 @@ const express = require('express')
 const router = express.Router()
 const path = require('path')
 const bodyParser = require('body-parser')
+const expressSession = require('express-session')
+const SQLiteStore = require('connect-sqlite3')(expressSession)
 const db = require('../db')
 
 router.use(bodyParser.urlencoded({ extended: true }))
 
 const multer = require('multer')
+const { request } = require('http')
 const storage = multer.diskStorage({
   destination: (req, file, cb) => { 
     cb(null, 'public/Images/')
@@ -18,13 +21,24 @@ const storage = multer.diskStorage({
     cb(null, fileName)
   }
 })
-const upload = multer({storage: storage})
+const upload = multer({ storage: storage })
+
+//define the create project route
+router.get('/createProject', (req, res) => { 
+  if (req.session.isLoggedIn) {
+    res.render('createProject.hbs') 
+    return
+  } else {
+    res.render('/login.hbs')
+    return
+  }
+})
 
 
 router.post('/createProject', upload.single('image'), (req, res) => { 
-  const title = req.params.title
-  const subtitle = req.params.subtitle
-  const desc = req.params.description
+  const title = req.body.title
+  const subtitle = req.body.subtitle
+  const desc = req.body.description
   const bgImage = req.filePath
   console.log(title, subtitle, desc, bgImage)
 
@@ -38,7 +52,6 @@ router.post('/createProject', upload.single('image'), (req, res) => {
           errors
         }
         res.render('start.hbs', model)
-        return
       
       } else {
         res.redirect('/projects')
@@ -48,7 +61,7 @@ router.post('/createProject', upload.single('image'), (req, res) => {
 })
 
 // //delet a post with a specific id
-// router.post('/projectByID/:id', function (req, res) { 
+// router.post('/projectByID/:id', function (req, res) {
 //   const id = req.params.id
 
 //   if(!request.session.isLoggedIn){
@@ -58,7 +71,7 @@ router.post('/createProject', upload.single('image'), (req, res) => {
 //       }
 //       response.render("Home.hbs", model)
 //       return
-//   } 
+//   }
   
 //   db.getProjectByID(id, function (err) {
 //     if (err) {
@@ -78,23 +91,34 @@ router.post('/createProject', upload.single('image'), (req, res) => {
 //   })
 // })
 
-//view a project with a specific id
-router.get('/projectByID/:id', (req, res) => {
-  const id = req.body.id
+router.get('/project', (req, res) => { 
+  res.render('project.hbs', model)
+})
 
-  db.getProjectByID(id, function (err, projects) { 
-    if (err) { 
-      const errors = "Could not load project, please try again later"
+//view a project with a specific id
+router.get('/projects/:id', (req, res) => {
+  const id = req.params.id
+  console.log(id)
+
+  const errorMessage = []
+
+  db.getProjectByID(id, function (err, project) { 
+    if (err) {
+      errorMessage.push("Query error")
       const model = {
-        errors
+        errorMessage: errorMessage,
+        project: project
       }
-      res.render('projectByID.hbs', model)
+      res.render('/project.hbs', model)
       return
-    } else {
+    }
+    else {
       const model = {
-        pageContent: projects
+        errorMessage: errorMessage,
+        project: project
       }
-      res.render('projectByID.hbs', model)
+      res.render('project.hbs', model)
+      return
     }
   })
 })

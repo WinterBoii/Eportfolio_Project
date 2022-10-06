@@ -1,14 +1,16 @@
 const express = require("express")
 const expressHandlebars = require("express-handlebars")
-const expressSession = require('express-session')
-const SQLiteStore = require('connect-sqlite3')(expressSession)
+const session = require("express-session")
+const bodyParser = require('body-parser')
+const SQLiteStore = require('connect-sqlite3')(session)
 const path = require("path")
 const app = express()
 const db = require('./db') 
 
 const projectsRouter = require("./routers/projects");
+const collabsRouter = require("./routers/collabs");
 
-app.use(expressSession({
+app.use(session({
   secret: "osjdioajsdioajshdioqjaqipowrh1moiiaiohsjdj",
   saveUninitialized: false,
   resave: false,
@@ -17,15 +19,29 @@ app.use(expressSession({
   })
 }))
 
+app.set('views', path.join(__dirname, 'views'))
+
 app.use("/public", express.static(path.join(__dirname, "/public")))
 
 app.use('/', projectsRouter)
+app.use('/', collabsRouter)
+
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+
 
 app.engine("hbs", expressHandlebars.engine({
   extname: "hbs",
   defaultLayout: "main",
+  layoutsDir: path.join(__dirname,'views/layouts'),
   })
-);
+)
+
+app.engine(".hbs", expressHandlebars.engine({
+    defaultLayout: "main.hbs",
+    extname: "hbs"
+}))
 
 app.use(function(request, response, next){
 	response.locals.isLoggedIn = request.session.isLoggedIn
@@ -34,10 +50,9 @@ app.use(function(request, response, next){
 
 app.use(
 	express.urlencoded({
-		extended: true
+		extended: false
 	})
 )
-
 
 // define the home page route
 app.get('/', function(request, response){
@@ -45,39 +60,31 @@ app.get('/', function(request, response){
 	const model = {
 		session: request.session
 	}
-	
 	response.render('start.hbs', model)
 })
+
 // define the project route
 app.get('/projects', (req, res) => {
   if (req.session.isLoggedIn) {
       const model = {
-        isLoggedIn: true,
+        isLoggedIn: session.isLoggedIn,
       }
-    }
+  }
+  const errors = []
   db.getAllProjects((err, projects) => { 
     if (err) {
+      errors.push("Internal error")
       console.log(err)
       return
     }
     else {
       model = {
-          projects: projects
+          errors,
+          projects
         }
     }
     res.render('projects.hbs', model)
   })
-})
-
-//define the create project route
-app.get('/createProject', (req, res) => { 
-  if (req.session.isLoggedIn) {
-    res.render('createProject.hbs')
-    return
-  } else {
-    res.redirect('/login.hbs')
-    return
-  }
 })
 
 // define the contact route
@@ -87,16 +94,26 @@ app.get('/contact', (req, res) => {
 
 // define the collaboration route
 app.get('/collaboration', (req, res) => { 
-  res.render('collaboration.hbs')
+  if (req.session.isLoggedIn) {
+      const model = {
+        isLoggedIn: session.isLoggedIn,
+      }
+    }
+  db.getAllCollab((err, collabs) => { 
+    if (err) {
+      console.log(err)
+      return
+    }
+    else {
+      model = {
+          collabs
+        }
+    }
+    res.render('collaboration.hbs', model)
+  })
 })
 
 app.get('/login', (req, res) => {
-  //hideFooter = true
-
-  if (req.session.isLoggedIn) {
-    res.redirect('/')
-    return
-  }
   model = {
     hideFooter: true
   }

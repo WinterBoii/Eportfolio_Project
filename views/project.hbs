@@ -1,0 +1,37 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="project-wrapper">
+        <img class="project__img" src="/public/Images/{{project.bgImage}}" />
+      </div>
+      <h1>Hello</h1>
+      <li class="project">
+        <div class="project__wrapper">
+          <div class="project__description">
+            <h3 class="project__description--title">
+              {{project.title}}
+            </h3>
+            <h4 class="project__description--sub-title">
+              {{project.subtitle}}
+            </h4>
+            <p class="project__description--para">
+              {{project.description}}
+            </p>
+          </div>
+        </div>
+      </li>
+      {{#if isLoggedIn}}
+      <div class="crud-wrapper">
+        <div class="crud">
+          <form action="/createProject" method="GET" enctype="multipart/form-data">
+            <input class="input-group-btn" type="submit" value="Create">
+          </form>
+          <form action="/deleteProject/{{project.id}}" method="GET" enctype="multipart/form-data">
+            <input class="input-group-btn" type="submit" value="Delete">
+          </form>
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</section>
