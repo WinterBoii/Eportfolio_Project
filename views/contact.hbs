@@ -1,0 +1,68 @@
+<section id="contact">
+  <div class="row">
+    <div class="modall--open modall">
+      <div class="modall__half modall__about modall--open">
+        <h3 class="modall__title modall__title--about">Here's a bit about me.</h3>
+        <h4 class="modall__sub-title modall__sub-title--about">Software Engineer.</h4>
+        <p class="modall__para">
+          I'm a 22 year-old <b class="orange">software engineering</b> student with no-experience developing
+          websites for tech companies like <b class="orange">Google</b> and <b class="orange">Facebook</b>.
+          Below are my technology stacks:
+        </p>
+        <div class="modall__languages">
+
+          <figure class="modall__language">
+            <img class="modall__language--img"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/HTML5_Badge.svg/240px-HTML5_Badge.svg.png"
+              alt="HTML logo">
+            <span class="language__name">HTML</span>
+          </figure>
+          <figure class="modall__language">
+            <img class="modall__language--img" src="https://cdn.iconscout.com/icon/free/png-256/css-131-722685.png"
+              alt="CSS logo">
+            <span class="language__name">CSS</span>
+          </figure>
+          <figure class="modall__language">
+            <img class="modall__language--img" src="https://cdn.iconscout.com/icon/free/png-256/javascript-1-225993.png"
+              alt="JS logo">
+            <span class="language__name">JavaScript</span>
+          </figure>
+        </div>
+      </div>
+      <div class="modall__half modall__contact">
+        <i class="icon icon-cross modall__exit click" onclick="toggleModal()"></i>
+        <h3 class="modall__title modall__title--contact">
+          Let's have a chat!
+        </h3>
+        <h3 class="modall__sub-title modall__sub-title--contact">
+          I'm currently open to new opportunities.
+        </h3>
+        <form id="contact__form" onsubmit="contact(event)">
+          <div class="form__item">
+            <label class="form__item--label">Name</label>
+            <input class="input" name="user_name" type="text" required></input>
+          </div>
+          <div class="form__item">
+            <label class="form__item--label">Email</label>
+            <input class="input" name="user_email" type="email" required></input>
+          </div>
+          <div class="form__item">
+            <label class="form__item--label">Message</label>
+            <textarea class="input" name="message" type="text" required></textarea>
+          </div>
+          <button id="contact__submit" class="form__submit">
+            Send it my way
+          </button>
+        </form>
+        <div class="modall__overlay modall__overlay--loading">
+          <i class="fas fa-spinner"></i>
+        </div>
+        <div class="modall__overlay modall__overlay--success">
+          Thanks for the message! Looking forward to speaking to you soon.
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>

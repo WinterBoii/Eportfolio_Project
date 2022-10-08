@@ -33,7 +33,6 @@ app.use(session({
 app.use('/projects', projectsRouter)
 app.use('/collaboration', collabsRouter)
 
-
 app.engine("hbs", expressHandlebars.engine({
   extname: "hbs",
   defaultLayout: "main",
@@ -42,19 +41,30 @@ app.engine("hbs", expressHandlebars.engine({
 )
 
 
-app.use(function(request, response, next){
-	response.locals.isLoggedIn = request.session.isLoggedIn
+app.use(function(req, res, next){
+	res.locals.isLoggedIn = req.session.isLoggedIn
 	next()
 })
 
 
 // define the home page route
-app.get('/', function(request, response){
+app.get('/', (req, res) => {
 	
 	const model = {
-		session: request.session
+    session: req.session,
+    hideFooter: false,
+    hideNavigation: false
 	}
-	response.render('start.hbs', model)
+	res.render('start.hbs', model)
+})
+
+// define the contact page route
+app.get('/contact', (req, res) => {
+  const model = {
+    hideFooter: true,
+    hideNav: true,
+  }
+  res.render('contact.hbs', model)
 })
 
 // define the project route
@@ -130,14 +140,14 @@ app.post('/login', (req, res) => {
       hideFooter: true,
       error
     }
-    response.render('login.hbs', model)
+    res.render('login.hbs', model)
     return
   }
 })
 
-app.get("/logout", function(request, response){
-  request.session.isLoggedIn = false
-  response.redirect("/")
+app.get("/logout", function(req, res){
+  req.session.isLoggedIn = false
+  res.redirect("/")
 })
 
 const port = 3000
