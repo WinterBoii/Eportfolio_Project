@@ -1,20 +1,20 @@
 <section>
   <div class="container">
+    {{#if project}}
     <div class="row">
-      <div class="project-wrapper">
+      <div class="project__wrapper nohover">
         <img class="project__img" src="/public/Images/{{project.bgImage}}" />
       </div>
-      <h1>Hello</h1>
       <li class="project">
-        <div class="project__wrapper">
-          <div class="project__description">
-            <h3 class="project__description--title">
+        <div class="project-by-id">
+          <div>
+            <h3>
               {{project.title}}
             </h3>
-            <h4 class="project__description--sub-title">
+            <h4>
               {{project.subtitle}}
             </h4>
-            <p class="project__description--para">
+            <p>
               {{project.description}}
             </p>
           </div>
@@ -23,15 +23,18 @@
       {{#if isLoggedIn}}
       <div class="crud-wrapper">
         <div class="crud">
-          <form action="/createProject" method="GET" enctype="multipart/form-data">
-            <input class="input-group-btn" type="submit" value="Create">
+          <form action="/projects/{{project.id}}/update" method="POST" enctype="multipart/form-data">
+            <input class="input-group-btn" type="submit" value="Update">
           </form>
-          <form action="/deleteProject/{{project.id}}" method="GET" enctype="multipart/form-data">
+          <form action="/projects/{{project.id}}/delete" method="POST" enctype="multipart/form-data">
             <input class="input-group-btn" type="submit" value="Delete">
           </form>
         </div>
       </div>
       {{/if}}
     </div>
+    {{else}}
+    <h1 class="section__title">The project you are looking for does not exist</h1>
+    {{/if}}
   </div>
 </section>

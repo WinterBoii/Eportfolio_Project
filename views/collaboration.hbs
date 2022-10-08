@@ -1,10 +1,10 @@
 <div class="responsive-container-block container">
-  {{#if collabs.length}}
+  {{#if Collabs.length}}
   <p class="text-blk team-head-text">
     My <span class="orange">Collaboration's!</span>
   </p>
   <div class="responsive-container-block">
-    {{#each collabs}}
+    {{#each Collabs}}
     <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 card-container">
       <div class="card">
         <div class="team-image-wrapper">
@@ -24,31 +24,31 @@
             <img src="{{this.socialLink2}}" class="facebook-icon" />
           </a>
           <a href="https://www.instagram.com" target="_blank">
-            <img src="{{this.socialLink3}}" class="facebook-icon" />
+            <img src="{{this.socialLink3}}" class="instagram-icon" />
           </a>
         </div>
       </div>
     </div>
     {{/each}}
+    {{#if isLoggedIn}}
+    <div class="btn-wrapper">
+      <form action="/collaboration/create" method="GET" class="wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12"
+        enctype="multipart/form-data">
+        <input class="input-group-btn" type="submit" value="Create">
+      </form>
+    </div>
+    {{/if}}
   </div>
-  {{/if}}
-  {{#if isLoggedIn}}
-  <div class="btn-wrapper">
-    <button class="btn btn-primary">
-      <a href="/createCollab" class="wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12">Create</a>
-    </button>
-  </div>
-  {{/if}}
-  {{#else}}
+  {{else}}
   <p class="text-blk team-head-text">
     Coming Soon!
   </p>
   {{#if isLoggedIn}}
   <div class="btn-wrapper">
-    <button class="btn btn-primary">
-      <a href="/createCollab" class="wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12">Create</a>
+    <button class="btn btn-primary input-group-btn">
+      <a href="/collaboration/create" class="wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12">Create</a>
     </button>
   </div>
   {{/if}}
-  {{/else}}
+  {{/if}}
 </div>

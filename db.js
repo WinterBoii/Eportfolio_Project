@@ -3,7 +3,7 @@ const database = new sqlite3.Database('portfolio-database.db')
 const logindb = new sqlite3.Database("login-database.db")
 
 database.run(`
-  CREATE TABLE IF NOT EXISTS  projects (
+  CREATE TABLE IF NOT EXISTS Projects (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
     subtitle TEXT,
@@ -13,7 +13,7 @@ database.run(`
 )
 
 database.run(`
-  CREATE TABLE IF NOT EXISTS collabs (
+  CREATE TABLE IF NOT EXISTS Collabs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     profileImgLink TEXT,
     name TEXT,
@@ -34,7 +34,7 @@ logindb.run(`
 )
 
 exports.createProject = function(title, subtitle, desc, bgImage, callback) {
-    const query= "INSERT INTO  projects (title, subtitle, description, bgImage) VALUES (?,?,?,?)"
+    const query= "INSERT INTO Projects (title, subtitle, description, bgImage) VALUES (?,?,?,?)"
     
     const values =[title, subtitle, desc, bgImage] 
 
@@ -45,7 +45,7 @@ exports.createProject = function(title, subtitle, desc, bgImage, callback) {
 }
 
 exports.getAllProjects = function(callback) {
-  const query = `SELECT * FROM projects ORDER BY id DESC`
+  const query = "SELECT * FROM Projects ORDER BY id DESC"
     
   database.all(query, function(error, projects){
       callback(error, projects)
@@ -53,7 +53,7 @@ exports.getAllProjects = function(callback) {
 }
 
 exports.getProjectByID = function (id, callback) { 
-  const query = "SELECT * FROM projects p WHERE id = ?"
+  const query = "SELECT * FROM Projects WHERE id = ?"
   const value = id
   
     // for single cell
@@ -62,22 +62,20 @@ exports.getProjectByID = function (id, callback) {
     })
 }
 
-exports.deleteProjectById = (req, res) => {
-  const query = `DELETE FROM projects WHERE id =?`
-  const values = [req.params.id]
+exports.deleteProjectById = (id, callback) => {
+  const query = "DELETE FROM Projects WHERE id = ?"
+  const values = id
   
-  database.run(query, values, function (error) {
-    res.status(200).send({
-      message: "Project deleted",
-    })
+  database.run(query, values, function (error, res) {
+    callback(error, res)
   })
 }
 
 /* -------------------------------- Collabs --------------------------------*/
 
-exports.createCollab = (pfp, fullName, pos, para, social1, social2, social3, callback) => { 
-  const query= "INSERT INTO  collabs (profileImgLink, name, position, paragraph, socialLink1, socialLink2, socialLink3) VALUES (?,?,?,?,?,?,?)"
-  const values = [pfp, fullName, pos, para, social1, social2, social3] 
+exports.createCollab = (pfp, fullName, pos, para, social1, social2, callback) => { 
+  const query= "INSERT INTO Collabs (profileImgLink, name, position, paragraph, socialLink1, socialLink2, socialLink3) VALUES (?,?,?,?,?,?,?)"
+  const values = [pfp, fullName, pos, para, social1, social2] 
   console.log(social1)
   
   database.run(query, values, function (error) {
@@ -86,7 +84,7 @@ exports.createCollab = (pfp, fullName, pos, para, social1, social2, social3, cal
 }
 
 exports.getAllCollab = function(callback) {
-  const query = "SELECT * FROM collabs ORDER BY id DESC"
+  const query = "SELECT * FROM Collabs ORDER BY id DESC"
     
   database.all(query, function(error, collabs){
       callback(error, collabs)

@@ -10,6 +10,16 @@ const db = require('./db')
 const projectsRouter = require("./routers/projects");
 const collabsRouter = require("./routers/collabs");
 
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use("/public", express.static(path.join(__dirname, "/public")))
+
+app.use(
+	express.urlencoded({
+		extended: false
+	})
+)
+
 app.use(session({
   secret: "osjdioajsdioajshdioqjaqipowrh1moiiaiohsjdj",
   saveUninitialized: false,
@@ -19,16 +29,9 @@ app.use(session({
   })
 }))
 
-app.set('views', path.join(__dirname, 'views'))
 
-app.use("/public", express.static(path.join(__dirname, "/public")))
-
-app.use('/', projectsRouter)
-app.use('/', collabsRouter)
-
-
-app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use('/projects', projectsRouter)
+app.use('/collaboration', collabsRouter)
 
 
 app.engine("hbs", expressHandlebars.engine({
@@ -38,21 +41,12 @@ app.engine("hbs", expressHandlebars.engine({
   })
 )
 
-app.engine(".hbs", expressHandlebars.engine({
-    defaultLayout: "main.hbs",
-    extname: "hbs"
-}))
 
 app.use(function(request, response, next){
 	response.locals.isLoggedIn = request.session.isLoggedIn
 	next()
 })
 
-app.use(
-	express.urlencoded({
-		extended: false
-	})
-)
 
 // define the home page route
 app.get('/', function(request, response){
@@ -67,11 +61,11 @@ app.get('/', function(request, response){
 app.get('/projects', (req, res) => {
   if (req.session.isLoggedIn) {
       const model = {
-        isLoggedIn: session.isLoggedIn,
+        isLoggedIn: true,
       }
   }
   const errors = []
-  db.getAllProjects((err, projects) => { 
+  db.getAllProjects((err, Projects) => { 
     if (err) {
       errors.push("Internal error")
       console.log(err)
@@ -80,7 +74,7 @@ app.get('/projects', (req, res) => {
     else {
       model = {
           errors,
-          projects
+          Projects
         }
     }
     res.render('projects.hbs', model)
@@ -94,22 +88,20 @@ app.get('/contact', (req, res) => {
 
 // define the collaboration route
 app.get('/collaboration', (req, res) => { 
-  if (req.session.isLoggedIn) {
-      const model = {
-        isLoggedIn: session.isLoggedIn,
-      }
-    }
-  db.getAllCollab((err, collabs) => { 
+
+  db.getAllCollab((err, Collabs) => { 
     if (err) {
       console.log(err)
       return
     }
     else {
       model = {
-          collabs
-        }
+        Collabs,
+        isLoggedIn: req.session.isLoggedIn
+      }
+      console.log(model)
+      res.render('collaboration.hbs', model)
     }
-    res.render('collaboration.hbs', model)
   })
 })
 

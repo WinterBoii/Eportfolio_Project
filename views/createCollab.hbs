@@ -4,7 +4,7 @@
     <div class="create__img__wrapper">
       <img src="/public/assets/createProject.svg" alt="" class="create__img">
     </div>
-    <form action="/createCollab" method="POST" enctype="multipart/form-data" class="form">
+    <form action="/create" method="POST" enctype="multipart/form-data" class="form">
       <div class="form-group col-5">
         <label class="form-label" for="form-input">Profile Picture Link</label>
         <input class="form-input" type="text" placeholder="Picture URL:" name="pfp" required />
@@ -28,10 +28,6 @@
       <div class="form-group col-5">
         <label class="form-label" for="form-input">Social Media</label>
         <input class="form-input" type="text" placeholder="Social Link:" name="socialmedia2" />
-      </div>
-      <div class="form-group col-5">
-        <label class="form-label" for="form-input">Social Media</label>
-        <input class="form-input" type="text" placeholder="Social Link:" name="socialmedia3" />
       </div>
       <button type="submit" class="btn btn-primary col-1">Submit</button>
     </form>

@@ -9,7 +9,6 @@ const db = require('../db')
 router.use(bodyParser.urlencoded({ extended: true }))
 
 const multer = require('multer')
-const { request } = require('http')
 const storage = multer.diskStorage({
   destination: (req, file, cb) => { 
     cb(null, 'public/Images/')
@@ -24,7 +23,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 //define the create project route
-router.get('/createProject', (req, res) => { 
+router.get('/create', (req, res) => { 
   if (req.session.isLoggedIn) {
     res.render('createProject.hbs') 
     return
@@ -35,7 +34,7 @@ router.get('/createProject', (req, res) => {
 })
 
 
-router.post('/createProject', upload.single('image'), (req, res) => { 
+router.post('/projects/create', upload.single('image'), (req, res) => { 
   const title = req.body.title
   const subtitle = req.body.subtitle
   const desc = req.body.description
@@ -60,68 +59,71 @@ router.post('/createProject', upload.single('image'), (req, res) => {
   }
 })
 
-// //delet a post with a specific id
-// router.post('/projectByID/:id', function (req, res) {
-//   const id = req.params.id
-
-//   if(!request.session.isLoggedIn){
-//       const errors="You need to be logged in to update the project."
-//       model={
-//         errors
-//       }
-//       response.render("Home.hbs", model)
-//       return
-//   }
-  
-//   db.getProjectByID(id, function (err) {
-//     if (err) {
-//       const errors = "Could not get project, please try again later"
-//       const model = {
-//         errors
-//       }
-//       res.render('start.hbs', model)
-//       return
-//     } else {
-//       const success = "The delete was successful"
-//       model = {
-//         success
-//       }
-//       res.render('projects.hbs', model)
-//     }
-//   })
-// })
-
 router.get('/project', (req, res) => { 
+  const model = {
+    Project,
+    isLoggedIn: req.session.isLoggedIn
+  }
   res.render('project.hbs', model)
 })
 
 //view a project with a specific id
-router.get('/projects/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const id = req.params.id
-  console.log(id)
 
   const errorMessage = []
+  const model = {}
 
   db.getProjectByID(id, function (err, project) { 
     if (err) {
       errorMessage.push("Query error")
-      const model = {
-        errorMessage: errorMessage,
-        project: project
-      }
+      model.errorMessage = err.message
+      model.project = project
+
       res.render('/project.hbs', model)
       return
     }
     else {
-      const model = {
-        errorMessage: errorMessage,
-        project: project
-      }
+      model.project = project
+      model.isLoggedIn = req.session.isLoggedIn
+
       res.render('project.hbs', model)
       return
     }
   })
 })
+
+//delet a post with a specific id
+router.post('/:id/delete', function (req, res) {
+  const id = req.params.id
+
+  if(!req.session.isLoggedIn){
+      const errors = "You need to be logged in to update the project."
+      model = {
+        errors
+      }
+      response.render("login.hbs", model)
+      return
+  }
+  
+  db.deleteProjectById(id, function (err) {
+    if (err) {
+      const errors = "Could not get project, please try again later"
+      const model = {
+        errors
+      }
+      res.render('start.hbs', model)
+      return
+    } else {
+        const success = "The delete was successful"
+        model = {
+          success
+        }
+      res.render('/', model)
+    }
+  })
+})
+
 
 
 // function auth(req, res, next) {

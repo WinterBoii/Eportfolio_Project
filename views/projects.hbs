@@ -1,13 +1,13 @@
 <section id="projects">
 	<div class="container">
 		<div class="row">
-			{{#if projects.length}}
+			{{#if Projects.length}}
 			<h1 class="section__title">
-				Here are some of my
+				Here are my
 				<span class="orange">projects</span>
 			</h1>
 			<ul class="project__list">
-				{{#each projects}}
+				{{#each Projects}}
 				<li class="project">
 					<div class="project__wrapper">
 						<img class="project__img" src="/public/Images/{{bgImage}}" />
@@ -29,36 +29,39 @@
 					{{#if isLoggedIn}}
 					<div class="crud-wrapper">
 						<div class="crud">
-							<form action="/createProject" method="GET" enctype="multipart/form-data">
-								<input class="input-group-btn" type="submit" value="Create">
-							</form>
-							<form action="/deleteProject/{{id}}" method="GET" enctype="multipart/form-data">
-								<input class="input-group-btn" type="submit" value="Delete">
+							<form action="/projects/{{id}}/update" method="GET" enctype="multipart/form-data">
+								<input class="input-group-btn" type="submit" value="Update">
 							</form>
 						</div>
 					</div>
 					{{/if}}
 				</li>
 				{{/each}}
+				{{#if isLoggedIn}}
+				<div class="crud-wrapper">
+					<div class="crud">
+						<form action="projects/create" method="GET" enctype="multipart/form-data">
+							<input class="input-group-btn" type="submit" value="Create">
+						</form>
+					</div>
+				</div>
+				{{/if}}
 			</ul>
 			{{/if}}
-			{{#else}}
+			{{#unless Projects}}
 			<h1 class="section__title">
 				Projects will be added
 				<span class="orange">soon!</span>
 			</h1>
+			{{#if isLoggedIn}}
 			<div class="crud-wrapper ">
-				{{#if isLoggedIn}}
 				<div class="crud">
-					<form action="/createProject" method="GET" class="centered" enctype="multipart/form-data">
+					<form action="projects/create" method="GET" class="centered" enctype="multipart/form-data">
 						<input class="input-group-btn" type="submit" value="Create">
 					</form>
-					<form action="/deleteProject/{{this.id}}" method="GET" class="centered" enctype="multipart/form-data">
-						<input class="input-group-btn" type="submit" value="Delete">
-					</form>
 				</div>
-				{{/if}}
 			</div>
-			{{/else}}
+			{{/if}}
+			{{/unless}}
 		</div>
 </section>
