@@ -7,6 +7,15 @@
 				<span class="orange">projects</span>
 			</h1>
 			<ul class="project__list">
+				{{#if isLoggedIn}}
+				<div class="crud-wrapper">
+					<div class="crud">
+						<form action="/projects/create" method="GET" enctype="multipart/form-data">
+							<input class="input-group-btn" type="submit" value="Create">
+						</form>
+					</div>
+				</div>
+				{{/if}}
 				{{#each Projects}}
 				<li class="project">
 					<div class="project__wrapper">
@@ -29,7 +38,7 @@
 					{{#if isLoggedIn}}
 					<div class="crud-wrapper">
 						<div class="crud">
-							<form action="/projects/{{id}}/update" method="GET" enctype="multipart/form-data">
+							<form action="/projects/{{id}}/update" method="POST" enctype="multipart/form-data">
 								<input class="input-group-btn" type="submit" value="Update">
 							</form>
 						</div>
@@ -37,18 +46,8 @@
 					{{/if}}
 				</li>
 				{{/each}}
-				{{#if isLoggedIn}}
-				<div class="crud-wrapper">
-					<div class="crud">
-						<form action="projects/create" method="GET" enctype="multipart/form-data">
-							<input class="input-group-btn" type="submit" value="Create">
-						</form>
-					</div>
-				</div>
-				{{/if}}
 			</ul>
-			{{/if}}
-			{{#unless Projects}}
+			{{else}}
 			<h1 class="section__title">
 				Projects will be added
 				<span class="orange">soon!</span>
@@ -56,12 +55,12 @@
 			{{#if isLoggedIn}}
 			<div class="crud-wrapper ">
 				<div class="crud">
-					<form action="projects/create" method="GET" class="centered" enctype="multipart/form-data">
+					<form action="/projects/create" method="GET" class="centered" enctype="multipart/form-data">
 						<input class="input-group-btn" type="submit" value="Create">
 					</form>
 				</div>
 			</div>
 			{{/if}}
-			{{/unless}}
+			{{/if}}
 		</div>
 </section>

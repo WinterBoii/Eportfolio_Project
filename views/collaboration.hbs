@@ -17,28 +17,25 @@
         <p class="text-blk feature-text">{{paragraph}}
         </p>
         <div class="social-icons">
-          <a href="https://www.twitter.com" target="_blank">
-            <img src="{{this.socialLink1}}" class="twitter-icon" />
+          <a href="{{socialLink1}}" target="_blank">
+            <img src="https://img.icons8.com/avantgarde/344/twitter.png" class="twitter-icon" />
           </a>
-          <a href="https://www.facebook.com" target="_blank">
-            <img src="{{this.socialLink2}}" class="facebook-icon" />
-          </a>
-          <a href="https://www.instagram.com" target="_blank">
-            <img src="{{this.socialLink3}}" class="instagram-icon" />
+          <a href="{{socialLink2}}" target="_blank">
+            <img src="https://img.icons8.com/avantgarde/344/facebook-new.png" class="facebook-icon" />
           </a>
         </div>
       </div>
     </div>
     {{/each}}
-    {{#if isLoggedIn}}
-    <div class="btn-wrapper">
-      <form action="/collaboration/create" method="GET" class="wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12"
-        enctype="multipart/form-data">
-        <input class="input-group-btn" type="submit" value="Create">
-      </form>
-    </div>
-    {{/if}}
   </div>
+  {{#if isLoggedIn}}
+  <div class="btn-wrapper">
+    <form action="/collaboration/create" method="GET" class="wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12"
+      enctype="multipart/form-data">
+      <input class="input-group-btn" type="submit" value="Create">
+    </form>
+  </div>
+  {{/if}}
   {{else}}
   <p class="text-blk team-head-text">
     Coming <span class="orange">Soon!</span>

@@ -20,8 +20,7 @@ database.run(`
     position TEXT,
     paragraph TEXT,    
     socialLink1 TEXT,
-    socialLink2 TEXT,
-    socialLink3 TEXT
+    socialLink2 TEXT
   )`
 )
 
@@ -53,13 +52,22 @@ exports.getAllProjects = function(callback) {
 }
 
 exports.getProjectByID = function (id, callback) { 
-  const query = "SELECT * FROM Projects WHERE id = ?"
+  const query = "SELECT * FROM Projects WHERE id = ? LIMIT 1"
   const value = id
   
     // for single cell
     database.get(query, value, function(error, res){
         callback(error, res)
     })
+}
+
+exports.updateProjectById = function (id, title, subtitle, desc, bgImage, callback) {
+  const query = "UPDATE Projects SET title = ?, subtitle = ?, description = ?, bgImage = ? WHERE id = ?"
+  const values = [title, subtitle, desc, bgImage, id]
+
+  database.run(query, values, function (error) {
+    callback(error)
+  })
 }
 
 exports.deleteProjectById = (id, callback) => {
@@ -74,9 +82,8 @@ exports.deleteProjectById = (id, callback) => {
 /* -------------------------------- Collabs --------------------------------*/
 
 exports.createCollab = (pfp, fullName, pos, para, social1, social2, callback) => { 
-  const query= "INSERT INTO Collabs (profileImgLink, name, position, paragraph, socialLink1, socialLink2, socialLink3) VALUES (?,?,?,?,?,?,?)"
+  const query = "INSERT INTO Collabs (profileImgLink, name, position, paragraph, socialLink1, socialLink2) VALUES (?,?,?,?,?,?)"
   const values = [pfp, fullName, pos, para, social1, social2] 
-  console.log(social1)
   
   database.run(query, values, function (error) {
     callback(error)
@@ -86,7 +93,7 @@ exports.createCollab = (pfp, fullName, pos, para, social1, social2, callback) =>
 exports.getAllCollab = function(callback) {
   const query = "SELECT * FROM Collabs ORDER BY id DESC"
     
-  database.all(query, function(error, collabs){
-      callback(error, collabs)
+  database.all(query, function(error, Collabs){
+      callback(error, Collabs)
   })
 }

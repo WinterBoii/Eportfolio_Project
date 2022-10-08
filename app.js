@@ -51,9 +51,7 @@ app.use(function(req, res, next){
 app.get('/', (req, res) => {
 	
 	const model = {
-    session: req.session,
-    hideFooter: false,
-    hideNavigation: false
+    session: req.session
 	}
 	res.render('start.hbs', model)
 })
@@ -97,21 +95,26 @@ app.get('/contact', (req, res) => {
 })
 
 // define the collaboration route
-app.get('/collaboration', (req, res) => { 
-
+app.get('/collaboration', (req, res) => {
+  if (req.session.isLoggedIn) {
+      const model = {
+        isLoggedIn: true,
+      }
+  }
+  const errors = []
   db.getAllCollab((err, Collabs) => { 
     if (err) {
+      errors.push("Internal error")
       console.log(err)
       return
     }
     else {
       model = {
-        Collabs,
-        isLoggedIn: req.session.isLoggedIn
-      }
-      console.log(model)
-      res.render('collaboration.hbs', model)
+          errors,
+          Collabs
+        }
     }
+    res.render('collaboration.hbs', model)
   })
 })
 

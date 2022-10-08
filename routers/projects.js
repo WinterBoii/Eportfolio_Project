@@ -5,6 +5,8 @@ const bodyParser = require('body-parser')
 const expressSession = require('express-session')
 const SQLiteStore = require('connect-sqlite3')(expressSession)
 const db = require('../db')
+const validators = require('../validators')
+
 
 router.use(bodyParser.urlencoded({ extended: true }))
 
@@ -25,16 +27,18 @@ const upload = multer({ storage: storage })
 //define the create project route
 router.get('/create', (req, res) => { 
   if (req.session.isLoggedIn) {
-    res.render('createProject.hbs') 
+    const model = {
+      isLoggedIn: true
+    }
+    res.render('createProject.hbs', model) 
     return
   } else {
-    res.render('/login.hbs')
+    res.redirect('/login')
     return
   }
 })
 
-
-router.post('/projects/create', upload.single('image'), (req, res) => { 
+router.post('/create', upload.single('image'), (req, res) => { 
   const title = req.body.title
   const subtitle = req.body.subtitle
   const desc = req.body.description
@@ -93,6 +97,63 @@ router.get('/:id', (req, res) => {
   })
 })
 
+// define the update route
+router.get('/:id/update', (req, res) => { 
+  const id = req.params.id
+	
+	db.getProjectByID(id, function(err, project){
+    if (err) { 
+      res.status(500).send(err)
+    } else {
+      const model = {
+        project
+      }
+      res.render('updateProject.hbs', model)	
+    }
+	})	
+})
+
+router.post('/:id/update', (req, res) => {
+	
+  const id = req.params.id
+  const title = req.body.title
+  const subtitle = req.body.subtitle
+  const desc = req.body.description
+  const bgImage = req.body.image
+  console.log(title, subtitle, desc, bgImage)
+	
+  const errors = validators.getValidationErrorsForProject(title, subtitle, desc, bgImage)
+	
+  if (!req.session.isLoggedIn) {
+    errors.push("Not logged in.")
+  }
+  if (errors.length == 0) {
+		
+    db.updateProjectById(id, title, subtitle, desc, bgImage, function (err) {
+      if (err) {
+        const errors = "Could not get project, please try again later"
+        const model = {
+          errors
+        }
+        res.redirect('/projects/' + id, model)
+        return
+        } else {
+        const model = {
+            error,
+            project : {
+              id,
+              title,
+              subtitle,
+              description,
+              bgImage,
+            }
+          }
+          res.redirect('/projects/' + id, model)
+        }
+    })
+  }
+})
+
 //delet a post with a specific id
 router.post('/:id/delete', function (req, res) {
   const id = req.params.id
@@ -119,7 +180,7 @@ router.post('/:id/delete', function (req, res) {
         model = {
           success
         }
-      res.render('/', model)
+      res.render('/projects', model)
     }
   })
 })

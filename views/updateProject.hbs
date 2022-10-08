@@ -1,0 +1,40 @@
+<section>
+  <div class="row">
+    {{#if errors.length}}
+    <p>Couldn't update the product because:</p>
+    <ul>
+      {{#each errors}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
+    {{/if}}
+
+    <h1 class="section__title">Update <span class="orange">Project</span></h1>
+    <div class="create__img__wrapper">
+      <img src="/public/assets/update.svg" alt="" class="create__img">
+    </div>
+    <form action="/projects/{{project.id}}/update" method="POST" enctype="multipart/form-data" class="form">
+      <div class="form-group col-5">
+        <label class="form-label" for="form-input">Title</label>
+        <input class="form-input" type="text" placeholder="Project name" name="title" value="{{project.title}}"
+          required />
+      </div>
+      <div class="form-group col-5">
+        <label class="form-label" for="form-input">Subtitle</label>
+        <input class="form-input" type="text" placeholder="Project subtitle" name="subtitle"
+          value="{{project.subtitle}}" required />
+      </div>
+      <div class="form-group col-5">
+        <label class="form-label" for="input-description">Description</label>
+        <textarea class="form-input" id="input-description" placeholder="Type project description" rows="5"
+          name="description">{{project.description}}</textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="form-input">Background Image</label>
+        <input class="form-input file removeBG" type="File" placeholder="Image" name="image"
+          required />{{project.bgImage}}
+      </div>
+      <button type="submit" class="btn btn-primary col-1">Update</button>
+    </form>
+  </div>
+</section>
