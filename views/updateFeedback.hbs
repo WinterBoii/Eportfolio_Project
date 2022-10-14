@@ -1,0 +1,27 @@
+<section>
+  <div class="row">
+    {{> errors}}
+    <h1 class="section__title">Update <span class="orange">Feedback</span></h1>
+    <div class="create__img__wrapper">
+      <img src="/public/assets/update.svg" alt="" class="create__img">
+    </div>
+    <form action="/guestBook/{{feedback.id}}/update" method="POST" class="form">
+      <div class="form-group col-5">
+        <label class="form-label" for="form-input">Name</label>
+        <input class="form-input" type="text" placeholder="Ex: Tom Cruise" name="postname" value="{{feedback.postname}}"
+          required />
+      </div>
+      <div class="form-group col-5">
+        <label class="form-label" for="form-input">Subject</label>
+        <input class="form-input" type="text" placeholder="Title" name="subject"
+          value="{{feedback.subject}}" required />
+      </div>
+      <div class="form-group col-5">
+        <label class="form-label" for="input-description">Feedback</label>
+        <textarea class="form-input" id="input-description" placeholder="Textarea" rows="3"
+          name="feedbackContent">{{feedback.feedbackContent}}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary col-1">Update</button>
+    </form>
+  </div>
+</section>

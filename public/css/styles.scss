@@ -48,6 +48,12 @@ h3 {
   margin-top: 3%;
 }
 
+.error-text {
+  text-align: left;
+  color: $text-primary;
+  font-size: 14px;
+}
+
 .title {
   color: $text-secondary;
   font-size: 120px;
@@ -403,8 +409,8 @@ nav,
   font-size: 32px;
   border-radius: 50%;
   border: none;
-  color: $secondary-color;
-  background-color: $text-primary;
+  color: $text-primary;
+  background-color: $text-optional;
   position: fixed;
   bottom: 32px;
   right: 40px;
@@ -478,10 +484,12 @@ nav {
 
 
 .section__title {
+  position: relative;
   color: $text-secondary;
   text-align: center;
   font-size: 48px;
   margin-bottom: 60px;
+  z-index: 101;
 }
 
 .project {
@@ -499,6 +507,11 @@ nav {
   border-radius: 20px;
   box-shadow: 0 20px 80px 0 rgb(0, 0, 0, 0.45);
   overflow: hidden;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
 }
 
 .nohover {
@@ -674,7 +687,8 @@ nav {
   overflow: visible;
   top: 25%;
   left: 35%;
-  overflow: hidden;
+  overflow: visible;
+  z-index: 2;
 
   .create__img {
     scale: 0.7;
@@ -817,6 +831,7 @@ nav {
 }
 
 .card {
+  position: relative;
   background: $text-optional;
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 20px 7px;
@@ -824,6 +839,17 @@ nav {
   flex-direction: column;
   align-items: center;
   padding: 30px 25px 30px 25px;
+}
+
+.cross {
+  scale: 1.5;
+  position: absolute;
+  left: 80%;
+}
+
+.arrow-wrapper {
+  scale: 1.5;
+  margin-top: 5%;
 }
 
 .card-container {
@@ -864,6 +890,11 @@ nav {
   width: 130px;
   height: 130px;
   max-width: 130px;
+
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
 }
 
 .team-member-image {
@@ -882,6 +913,10 @@ nav {
   .card-container {
     width: 100%;
     margin: 0 0 25px 0;
+  }
+
+  .cross {
+    left: 80%;
   }
 }
 
@@ -948,6 +983,8 @@ body {
 }
 
 @media (max-width: 1024px) {
+
+
   .wk-ipadp-1 {
     width: 8.333333%;
   }
@@ -998,6 +1035,7 @@ body {
 }
 
 @media (max-width: 768px) {
+
   .wk-tab-1 {
     width: 8.333333%;
   }
@@ -1095,6 +1133,16 @@ body {
   .wk-mobile-12 {
     width: 100%;
   }
+}
+
+/* 
+
+ GuestBook
+
+*/
+.hero-body,
+.hero {
+  margin-top: 10px;
 }
 
 /* 

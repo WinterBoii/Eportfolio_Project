@@ -4,12 +4,15 @@ const session = require("express-session")
 const bodyParser = require('body-parser')
 const SQLiteStore = require('connect-sqlite3')(session)
 const path = require("path")
+const cookieParser = require('cookie-parser')
+const bcrypt = require('bcrypt')
 const app = express()
-const db = require('./db') 
 
-const projectsRouter = require("./routers/projects");
-const collabsRouter = require("./routers/collabs");
+const guestBookRouter = require("./routers/guestbook")
+const projectRouter = require("./routers/project")
+const collaborationRouter = require("./routers/collaboration")
 
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use("/public", express.static(path.join(__dirname, "/public")))
@@ -29,27 +32,25 @@ app.use(session({
   })
 }))
 
-
-app.use('/projects', projectsRouter)
-app.use('/collaboration', collabsRouter)
-
-app.engine("hbs", expressHandlebars.engine({
-  extname: "hbs",
-  defaultLayout: "main",
-  layoutsDir: path.join(__dirname,'views/layouts'),
-  })
-)
-
-
-app.use(function(req, res, next){
+app.use((req, res, next) => {
 	res.locals.isLoggedIn = req.session.isLoggedIn
 	next()
 })
 
+app.use('/projects', projectRouter)
+app.use('/collaborations', collaborationRouter)
+app.use('/guestBook', guestBookRouter)
+
+app.engine("hbs", expressHandlebars.engine({
+  extname: "hbs",
+  defaultLayout: "main",
+  partialsDir: __dirname + '/views/partials',
+  layoutsDir: path.join(__dirname,'views/layouts'),
+  })
+)
 
 // define the home page route
 app.get('/', (req, res) => {
-	
 	const model = {
     session: req.session
 	}
@@ -60,62 +61,14 @@ app.get('/', (req, res) => {
 app.get('/contact', (req, res) => {
   const model = {
     hideFooter: true,
-    hideNav: true,
+    isLoggedIn: req.session.isLoggedIn
   }
   res.render('contact.hbs', model)
-})
-
-// define the project route
-app.get('/projects', (req, res) => {
-  if (req.session.isLoggedIn) {
-      const model = {
-        isLoggedIn: true,
-      }
-  }
-  const errors = []
-  db.getAllProjects((err, Projects) => { 
-    if (err) {
-      errors.push("Internal error")
-      console.log(err)
-      return
-    }
-    else {
-      model = {
-          errors,
-          Projects
-        }
-    }
-    res.render('projects.hbs', model)
-  })
 })
 
 // define the contact route
 app.get('/contact', (req, res) => {
   res.render('contact.hbs')
-})
-
-// define the collaboration route
-app.get('/collaboration', (req, res) => {
-  if (req.session.isLoggedIn) {
-      const model = {
-        isLoggedIn: true,
-      }
-  }
-  const errors = []
-  db.getAllCollab((err, Collabs) => { 
-    if (err) {
-      errors.push("Internal error")
-      console.log(err)
-      return
-    }
-    else {
-      model = {
-          errors,
-          Collabs
-        }
-    }
-    res.render('collaboration.hbs', model)
-  })
 })
 
 app.get('/login', (req, res) => {
@@ -127,28 +80,23 @@ app.get('/login', (req, res) => {
 })
 
 const ADMIN_USERNAME = "obmu20"
-const ADMIN_PASSWORD = "obmu20xw"
+const hash = "$2y$10$/cir59GUKNOsqRkvmnn3UOINTr.g5e46Gxx5/RFq8mT9TIzxzV7pu"
 
 app.post('/login', (req, res) => {
-
   const username = req.body.username
   const password = req.body.password
 
-  if (username == ADMIN_USERNAME && password == ADMIN_PASSWORD) {
+  if (username === ADMIN_USERNAME && bcrypt.compare(password, hash)) { 
     req.session.isLoggedIn = true
     res.redirect('/')
   } else {
-    error = "Wrong Username or Password"
-    const model = {
-      hideFooter: true,
-      error
-    }
-    res.render('login.hbs', model)
-    return
+    res.render('login.hbs', {
+      hideFooter: true
+    })
   }
 })
 
-app.get("/logout", function(req, res){
+app.get("/logout", (req, res) => {
   req.session.isLoggedIn = false
   res.redirect("/")
 })

@@ -1,0 +1,41 @@
+<section>
+  <div class="row">
+    {{> errors}}
+    <h1 class="section__title">Update <span class="orange">Collaboration</span></h1>
+    <div class="create__img__wrapper">
+      <img src="/public/assets/update.svg" alt="" class="create__img">
+    </div>
+    <form action="/collaborations/{{collaboration.id}}/update" method="POST" class="form">
+      <div class="form-group col-5">
+        <label class="form-label" for="form-input">Profile Picture Link</label>
+        <input class="form-input" type="text" placeholder="Picture Link:" name="profileImageLink"
+          value="{{collaboration.profileImageLink}}" />
+      </div>
+      <div class="form-group col-5">
+        <label class="form-label" for="form-input">Name</label>
+        <input class="form-input" type="text" placeholder="Full name" name="name" value="{{collaboration.name}}" required />
+      </div>
+      <div class="form-group col-5">
+        <label class="form-label" for="form-input">Position</label>
+        <input class="form-input" type="text" placeholder="E.g CEO etc" name="position" value="{{collaboration.position}}"
+          required />
+      </div>
+      <div class="form-group col-5">
+        <label class="form-label" for="form-input">Feature</label>
+        <input class="form-input" type="text" placeholder="Short info" name="paragraph" value="{{collaboration.paragraph}}"
+          required />
+      </div>
+      <div class="form-group col-5">
+        <label class="form-label" for="form-input">Twitter</label>
+        <input class="form-input" type="text" placeholder="Twitter Link:" name="twitterLink"
+          value="{{collaboration.twitterLink}}" />
+      </div>
+      <div class="form-group col-5">
+        <label class="form-label" for="form-input">Facebook</label>
+        <input class="form-input" type="text" placeholder="Facebook Link:" name="facebookLink"
+          value="{{collaboration.facebookLink}}" />
+      </div>
+      <button type="submit" class="btn btn-primary col-1">Update</button>
+    </form>
+  </div>
+</section>

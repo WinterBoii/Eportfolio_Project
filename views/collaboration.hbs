@@ -1,51 +1,49 @@
 <div class="responsive-container-block container">
-  {{#if Collabs.length}}
-  <p class="text-blk team-head-text">
-    My <span class="orange">Collaboration's!</span>
-  </p>
+  {{> errors success}}
+  {{#if collaboration}}
   <div class="responsive-container-block">
-    {{#each Collabs}}
     <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 card-container">
+      <h1 class="section__title">Editing <span class="orange">Collaboration</span></h1>
       <div class="card">
-        <div class="team-image-wrapper">
-          <img src="{{profileImgLink}}" class="team-member-image" />
+        {{#if isLoggedIn}}
+        <div class="cross">
+          <form action="/collaborations/{{collaboration.id}}/delete" method="POST"
+            class="wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12">
+            <label for="input-label">
+              <button class="removeBg" title="Delete"><i class="icon icon-delete click"></i></button>
+            </label>
+          </form>
         </div>
-        <p class="text-blk name">{{name}}
+        {{/if}}
+        <div class="team-image-wrapper">
+          <img src="{{collaboration.profileImageLink}}" class="team-member-image" />
+        </div>
+        <p class="text-blk name">{{collaboration.name}}
         </p>
-        <p class="text-blk position">{{position}}
+        <p class="text-blk position">{{collaboration.position}}
         </p>
-        <p class="text-blk feature-text">{{paragraph}}
+        <p class="text-blk feature-text">{{collaboration.paragraph}}
         </p>
         <div class="social-icons">
-          <a href="{{socialLink1}}" target="_blank">
+          <a href="{{collaboration.twitterLink}}" class="click" target="_blank">
             <img src="https://img.icons8.com/avantgarde/344/twitter.png" class="twitter-icon" />
           </a>
-          <a href="{{socialLink2}}" target="_blank">
+          <a href="{{collaboration.facebookLink}}" class="click" target="_blank">
             <img src="https://img.icons8.com/avantgarde/344/facebook-new.png" class="facebook-icon" />
           </a>
         </div>
+        {{#if isLoggedIn}}
+        <div class="arrow-wrapper">
+          <form action="/collaborations/{{collaboration.id}}/update" method="GET"
+            class="wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12">
+            <label for="from-input">
+              <button class="removeBg" title="Update"><i class="icon icon-edit click"></i></button>
+            </label>
+          </form>
+        </div>
+        {{/if}}
       </div>
     </div>
-    {{/each}}
   </div>
-  {{#if isLoggedIn}}
-  <div class="btn-wrapper">
-    <form action="/collaboration/create" method="GET" class="wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12"
-      enctype="multipart/form-data">
-      <input class="input-group-btn" type="submit" value="Create">
-    </form>
-  </div>
-  {{/if}}
-  {{else}}
-  <p class="text-blk team-head-text">
-    Coming <span class="orange">Soon!</span>
-  </p>
-  {{#if isLoggedIn}}
-  <div class="btn-wrapper">
-    <form action="/collaboration/create" method="GET" enctype="multipart/form-data">
-      <input class="input-group-btn" type="submit" value="Create">
-    </form>
-  </div>
-  {{/if}}
   {{/if}}
 </div>

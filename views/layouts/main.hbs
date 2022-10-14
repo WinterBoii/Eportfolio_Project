@@ -17,7 +17,7 @@
 		<nav>
 			<figure>
 				<a href="/">
-					<h1 class="logo-title">M.W</h1>
+					<h1 class="logo-title">Moe-Fo</h1>
 				</a>
 			</figure>
 			<ul class="nav__link--list">
@@ -36,20 +36,20 @@
           ">Projects</a>
 				</li>
 				<li class="nav__link">
-					<a href="/collaboration" class="
-				            nav__link--anchor
-				            link__hover-effect
-				            link__hover-effect--black
-				          ">Collab</a>
+					<a href="/collaborations" class="
+				    nav__link--anchor
+				    link__hover-effect
+				    link__hover-effect--black
+				  ">Collaboration</a>
+				</li>
+				<li class="nav__link">
+					<a href="/guestBook" class="
+				  	nav__link--anchor
+				    link__hover-effect
+				    link__hover-effect--black
+				  	">Guestbook</a>
 				</li>
 				{{#unless isLoggedIn}}
-				<li class="nav__link">
-					<a id="contact_nav" href="/contact" class="
-            nav__link--anchor
-            link__hover-effect
-            link__hover-effect--black
-          ">Contact</a>
-				</li>
 				<li class="nav__link click">
 					<a href="/login" class="
 				            nav__link--anchor
@@ -68,7 +68,9 @@
 				{{/unless}}
 			</ul>
 		</nav>
-		<main>{{{body}}}</main>
+		<main>
+			{{{body}}}
+		</main>
 		{{#unless hideFooter}}
 		<footer>
 			<a href="/contact">
@@ -102,15 +104,15 @@
 			        ">
 							LinkedIn
 						</a>
-						<a href="public/assets/Resume.pdf" target="_blank" class="
+						<a href="/contact" class="
 			          footer__social--link
 			          link__hover-effect
 			          link__hover-effect--white
 			        ">
-							Resume
+							Contact
 						</a>
 					</div>
-					<div class="footer__copyright">Copyright &copy; 2022 Mohammad Winter</div>
+					<div class="footer__copyright">Copyright &copy; 2022 Mohammad O</div>
 				</div>
 		</footer>
 		{{/unless}}

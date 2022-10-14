@@ -1,0 +1,10 @@
+{{#if success.length}}
+	<p class="error-text"></p>
+	<ul>
+		{{#each success}}
+			<li>
+				<p class="error-text">{{this}}</p>
+			</li>
+		{{/each}}
+	</ul>
+{{/if}}

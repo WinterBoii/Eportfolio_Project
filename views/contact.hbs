@@ -30,14 +30,13 @@
         </div>
       </div>
       <div class="modall__half modall__contact">
-        <i class="icon icon-cross modall__exit click" onclick="toggleModal()"></i>
         <h3 class="modall__title modall__title--contact">
           Let's have a chat!
         </h3>
         <h3 class="modall__sub-title modall__sub-title--contact">
           I'm currently open to new opportunities.
         </h3>
-        <form id="contact__form" onsubmit="contact(event)">
+        <form id="contact__form" action="mailto:obmu20xw@student.ju.se?subject=Hello%20again" target="_top">
           <div class="form__item">
             <label class="form__item--label">Name</label>
             <input class="input" name="user_name" type="text" required></input>
@@ -46,20 +45,10 @@
             <label class="form__item--label">Email</label>
             <input class="input" name="user_email" type="email" required></input>
           </div>
-          <div class="form__item">
-            <label class="form__item--label">Message</label>
-            <textarea class="input" name="message" type="text" required></textarea>
-          </div>
           <button id="contact__submit" class="form__submit">
-            Send it my way
-          </button>
+              Send it my way
+            </button></a>
         </form>
-        <div class="modall__overlay modall__overlay--loading">
-          <i class="fas fa-spinner"></i>
-        </div>
-        <div class="modall__overlay modall__overlay--success">
-          Thanks for the message! Looking forward to speaking to you soon.
-        </div>
       </div>
     </div>
   </div>

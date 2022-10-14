@@ -1,0 +1,58 @@
+<div class="responsive-container-block container">
+  {{> errors}}
+  {{#if collaboration.length}}
+  <p class="text-blk team-head-text">
+    My <span class="orange">Collaboration's!</span>
+  </p>
+  <div class="responsive-container-block">
+    {{#each collaboration}}
+    <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 card-container">
+      <div class="card">
+        <div class="team-image-wrapper">
+          <img src="{{profileImageLink}}" class="team-member-image" />
+        </div>
+        <p class="text-blk name">{{name}}
+        </p>
+        <p class="text-blk position">{{position}}
+        </p>
+        <p class="text-blk feature-text">{{paragraph}}
+        </p>
+        <div class="social-icons">
+          <a href="{{twitterLink}}" class="click" target="_blank">
+            <img src="https://img.icons8.com/avantgarde/344/twitter.png" class="twitter-icon" />
+          </a>
+          <a href="{{facebookLink}}" class="click" target="_blank">
+            <img src="https://img.icons8.com/avantgarde/344/facebook-new.png" class="facebook-icon" />
+          </a>
+        </div>
+        <div class="arrow-wrapper">
+          <form action="/collaborations/{{id}}" method="GET" class="wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12">
+            <label for="button">
+              <button class="removeBg"><i class="icon icon-search click"></i></button>
+            </label>
+          </form>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{#if isLoggedIn}}
+  <div class="btn-wrapper">
+    <form action="/collaborations/create" method="GET" class="wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12">
+      <input class="input-group-btn" type="submit" value="Create">
+    </form>
+  </div>
+  {{/if}}
+  {{else}}
+  <p class="text-blk team-head-text">
+    Coming <span class="orange">Soon!</span>
+  </p>
+  {{#if isLoggedIn}}
+  <div class="btn-wrapper">
+    <form action="/collaborations/create" method="GET">
+      <input class="input-group-btn" type="submit" value="Create">
+    </form>
+  </div>
+  {{/if}}
+  {{/if}}
+</div>

@@ -1,14 +1,6 @@
 <section>
   <div class="row">
-    {{#if errors.length}}
-    <p>Couldn't update the product because:</p>
-    <ul>
-      {{#each errors}}
-      <li>{{this}}</li>
-      {{/each}}
-    </ul>
-    {{/if}}
-
+    {{> errors}}
     <h1 class="section__title">Update <span class="orange">Project</span></h1>
     <div class="create__img__wrapper">
       <img src="/public/assets/update.svg" alt="" class="create__img">
@@ -31,8 +23,8 @@
       </div>
       <div class="form-group">
         <label class="form-label" for="form-input">Background Image</label>
-        <input class="form-input file removeBG" type="File" placeholder="Image" name="image"
-          required />{{project.bgImage}}
+        <input class="form-input file removeBG" type="File" placeholder="Image" name="backgroundImage"
+          required />{{project.backgroundImage}}
       </div>
       <button type="submit" class="btn btn-primary col-1">Update</button>
     </form>

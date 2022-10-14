@@ -1,0 +1,10 @@
+{{#if errors.length}}
+	<p class="error-text">Errors:</p>
+	<ul>
+		{{#each errors}}
+			<li>
+				<p class="error-text">{{this}}</p>
+			</li>
+		{{/each}}
+	</ul>
+{{/if}}

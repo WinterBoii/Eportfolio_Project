@@ -1,6 +1,5 @@
 const sqlite3 = require('sqlite3')
 const database = new sqlite3.Database('portfolio-database.db')
-const logindb = new sqlite3.Database("login-database.db")
 
 database.run(`
   CREATE TABLE IF NOT EXISTS Projects (
@@ -8,46 +7,45 @@ database.run(`
     title TEXT,
     subtitle TEXT,
     description TEXT,
-    bgImage TEXT
+    backgroundImage TEXT
   )`
 )
 
 database.run(`
-  CREATE TABLE IF NOT EXISTS Collabs (
+  CREATE TABLE IF NOT EXISTS Collaboration (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    profileImgLink TEXT,
+    profileImageLink TEXT,
     name TEXT,
     position TEXT,
     paragraph TEXT,    
-    socialLink1 TEXT,
-    socialLink2 TEXT
+    twitterLink TEXT,
+    facebookLink TEXT
   )`
 )
 
-logindb.run(`
-  CREATE TABLE IF NOT EXISTS login (
-      userId INTEGER PRIMARY KEY AUTOINCREMENT,
-      password TEXT,
-      username TEXT 
-  )`
-)
+database.run(`
+  CREATE TABLE IF NOT EXISTS Feedback (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    postname TEXT,
+    subject TEXT,
+    feedbackContent TEXT
+  )
+`)
 
-exports.createProject = function(title, subtitle, desc, bgImage, callback) {
-    const query= "INSERT INTO Projects (title, subtitle, description, bgImage) VALUES (?,?,?,?)"
-    
-    const values =[title, subtitle, desc, bgImage] 
-
-    database.run(query, values, function(error){
-        callback(error)
-
-    })
+exports.createProject = function(title, subtitle, description, backgroundImage, callback) {
+  const query= "INSERT INTO Projects (title, subtitle, description, backgroundImage) VALUES (?,?,?,?)"  
+  const values = [title, subtitle, description, backgroundImage] 
+  
+  database.run(query, values, function(error){
+    callback(error)
+  })
 }
 
 exports.getAllProjects = function(callback) {
   const query = "SELECT * FROM Projects ORDER BY id DESC"
     
-  database.all(query, function(error, projects){
-      callback(error, projects)
+  database.all(query, function(error, res){
+    callback(error, res)
   })
 }
 
@@ -55,22 +53,22 @@ exports.getProjectByID = function (id, callback) {
   const query = "SELECT * FROM Projects WHERE id = ? LIMIT 1"
   const value = id
   
-    // for single cell
-    database.get(query, value, function(error, res){
-        callback(error, res)
-    })
+  // for single cell
+  database.get(query, value, function(error, res){
+    callback(error, res)
+  })
 }
 
-exports.updateProjectById = function (id, title, subtitle, desc, bgImage, callback) {
-  const query = "UPDATE Projects SET title = ?, subtitle = ?, description = ?, bgImage = ? WHERE id = ?"
-  const values = [title, subtitle, desc, bgImage, id]
+exports.updateProjectById = function (id, title, subtitle, description, backgroundImage, callback) {
+  const query = "UPDATE Projects SET title = ?, subtitle = ?, description = ?, backgroundImage = ? WHERE id = ?"
+  const values = [title, subtitle, description, backgroundImage, id]
 
   database.run(query, values, function (error) {
     callback(error)
   })
 }
 
-exports.deleteProjectById = (id, callback) => {
+exports.deleteProjectById = function (id, callback) {
   const query = "DELETE FROM Projects WHERE id = ?"
   const values = id
   
@@ -79,21 +77,105 @@ exports.deleteProjectById = (id, callback) => {
   })
 }
 
-/* -------------------------------- Collabs --------------------------------*/
+/* -------------------------------- Collaboration --------------------------------*/
 
-exports.createCollab = (pfp, fullName, pos, para, social1, social2, callback) => { 
-  const query = "INSERT INTO Collabs (profileImgLink, name, position, paragraph, socialLink1, socialLink2) VALUES (?,?,?,?,?,?)"
-  const values = [pfp, fullName, pos, para, social1, social2] 
+exports.createCollaboration = function (profileImageLink, name, position, paragraph, twitterLink, facebookLink, callback) { 
+  const query = "INSERT INTO Collaboration (profileImageLink, name, position, paragraph, twitterLink, facebookLink) VALUES (?,?,?,?,?,?)"
+  const values = [profileImageLink, name, position, paragraph, twitterLink, facebookLink] 
   
   database.run(query, values, function (error) {
     callback(error)
   })
 }
 
-exports.getAllCollab = function(callback) {
-  const query = "SELECT * FROM Collabs ORDER BY id DESC"
+exports.getAllCollaborations = function(callback) {
+  const query = "SELECT * FROM Collaboration ORDER BY id DESC"
     
-  database.all(query, function(error, Collabs){
-      callback(error, Collabs)
+  database.all(query, function(error, res){
+      callback(error, res)
+  })
+}
+
+exports.getCollaborationByID = function (id, callback) { 
+  const query = "SELECT * FROM Collaboration WHERE id = ? LIMIT 1"
+  const value = id
+  
+  // for single cell
+  database.get(query, value, function(error, res){
+    callback(error, res)
+  })
+}
+
+exports.updateCollaborationById = function (id, profileImageLink, name, position, paragraph, twitterLink, facebookLink, callback) { 
+  const query = "UPDATE Collaboration SET profileImageLink = ?, name = ?, position = ?, paragraph = ?, twitterLink = ?, facebookLink = ? WHERE id = ?"
+  const value = [profileImageLink, name, position, paragraph, twitterLink, facebookLink, id]
+
+  database.run(query, value, function (error) { 
+    callback(error)
+  })
+}
+
+exports.deleteCollaborationById = function (id, callback) {
+  const query = "DELETE FROM Collaboration WHERE id = ?"
+  const values = id
+  
+  database.run(query, values, function (error, res) {
+    callback(error, res)
+  })
+}
+
+/* -------------------------------- guestbook --------------------------------*/
+exports.getAllFeedback = function(callback) {
+  const query = "SELECT * FROM Feedback ORDER BY id  DESC"
+    
+  database.all(query,function(error, feedback){
+    callback(error, feedback)
+  })
+}
+
+exports.getFeedbackById = function(id, callback){
+  const query = "SELECT * FROM Feedback WHERE id = ?"
+  const values = id
+
+  database.run(query, values, function(error, res){
+    callback(error, res)
+  })
+}
+
+
+exports.createFeedback = function(postname, subject, feedbackContent, callback){
+  const query= "INSERT INTO  Feedback (postname, subject, feedbackContent) VALUES (?,?,?)"  
+  const values =[postname, subject, feedbackContent] 
+
+  database.run(query, values, function(error){
+    callback(error)
+  })
+}
+
+exports.getUpdateFeedbackById = function(id, callback){
+  const query = "SELECT * FROM Feedback WHERE id = ?"
+  const values = id
+  
+  database.get(query, values, function(error, res){
+    callback(error, res)
+  })
+}
+
+exports.updateFeedbackById = function(newName, newSubject, newFeedback, id, callback){
+
+  const query = "UPDATE Feedback SET postname = ?, subject = ?, feedbackContent = ? WHERE id = ?"
+  const values = [newName, newSubject, newFeedback, id]
+
+  database.run(query, values,function(error){
+    callback(error) 
+  })
+}
+
+exports.deleteFeedbackById = function(id, callback){
+  const query = "DELETE FROM Feedback WHERE id = ?"
+  const values = id
+  
+  database.run(query, values, function(error){
+    callback(error)
   })
 }

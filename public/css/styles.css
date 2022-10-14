@@ -38,6 +38,12 @@ h3 {
   margin-top: 3%;
 }
 
+.error-text {
+  text-align: left;
+  color: #242424;
+  font-size: 14px;
+}
+
 .title {
   color: #242424;
   font-size: 120px;
@@ -384,8 +390,8 @@ nav,
   font-size: 32px;
   border-radius: 50%;
   border: none;
-  color: #FEFFDE;
-  background-color: #242424;
+  color: #242424;
+  background-color: #DDFFBC;
   position: fixed;
   bottom: 32px;
   right: 40px;
@@ -454,10 +460,12 @@ nav {
 
 */
 .section__title {
+  position: relative;
   color: #242424;
   text-align: center;
   font-size: 48px;
   margin-bottom: 60px;
+  z-index: 101;
 }
 
 .project {
@@ -475,6 +483,11 @@ nav {
   border-radius: 20px;
   box-shadow: 0 20px 80px 0 rgba(0, 0, 0, 0.45);
   overflow: hidden;
+}
+.project__wrapper img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .nohover:hover .project__img {
@@ -630,7 +643,8 @@ nav {
   overflow: visible;
   top: 25%;
   left: 35%;
-  overflow: hidden;
+  overflow: visible;
+  z-index: 2;
 }
 .create__img__wrapper .create__img {
   scale: 0.7;
@@ -762,6 +776,7 @@ nav {
 }
 
 .card {
+  position: relative;
   background: #DDFFBC;
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 20px 7px;
@@ -769,6 +784,17 @@ nav {
   flex-direction: column;
   align-items: center;
   padding: 30px 25px 30px 25px;
+}
+
+.cross {
+  scale: 1.5;
+  position: absolute;
+  left: 80%;
+}
+
+.arrow-wrapper {
+  scale: 1.5;
+  margin-top: 5%;
 }
 
 .card-container {
@@ -811,6 +837,11 @@ nav {
   height: 130px;
   max-width: 130px;
 }
+.team-image-wrapper img {
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 
 .team-member-image {
   max-width: 100%;
@@ -827,6 +858,9 @@ nav {
   .card-container {
     width: 100%;
     margin: 0 0 25px 0;
+  }
+  .cross {
+    left: 80%;
   }
 }
 *,
@@ -1001,6 +1035,16 @@ body {
     width: 100%;
   }
 }
+/* 
+
+ GuestBook
+
+*/
+.hero-body,
+.hero {
+  margin-top: 10px;
+}
+
 /* 
 
   FOOTER 
