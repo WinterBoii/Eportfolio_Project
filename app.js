@@ -11,6 +11,7 @@ const app = express()
 const guestBookRouter = require("./routers/guestbook")
 const projectRouter = require("./routers/project")
 const collaborationRouter = require("./routers/collaboration")
+const { Result } = require("express-validator")
 
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -18,9 +19,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use("/public", express.static(path.join(__dirname, "/public")))
 
 app.use(
-	express.urlencoded({
-		extended: false
-	})
+  express.urlencoded({
+    extended: false
+  })
 )
 
 app.use(session({
@@ -33,8 +34,8 @@ app.use(session({
 }))
 
 app.use((req, res, next) => {
-	res.locals.isLoggedIn = req.session.isLoggedIn
-	next()
+  res.locals.isLoggedIn = req.session.isLoggedIn
+  next()
 })
 
 app.use('/projects', projectRouter)
@@ -45,16 +46,16 @@ app.engine("hbs", expressHandlebars.engine({
   extname: "hbs",
   defaultLayout: "main",
   partialsDir: __dirname + '/views/partials',
-  layoutsDir: path.join(__dirname,'views/layouts'),
-  })
+  layoutsDir: path.join(__dirname, 'views/layouts'),
+})
 )
 
 // define the home page route
 app.get('/', (req, res) => {
-	const model = {
+  const model = {
     session: req.session
-	}
-	res.render('start.hbs', model)
+  }
+  res.render('start.hbs', model)
 })
 
 // define the contact page route
@@ -80,20 +81,36 @@ app.get('/login', (req, res) => {
 })
 
 const ADMIN_USERNAME = "obmu20"
-const hash = "$2y$10$/cir59GUKNOsqRkvmnn3UOINTr.g5e46Gxx5/RFq8mT9TIzxzV7pu"
+const hash = "$2a$10$Cwasd7vhsCyTynKN52U1zOoRuwmbQfGL4H64i/wdPaQ0R2dlMqVA6"
 
 app.post('/login', (req, res) => {
   const username = req.body.username
   const password = req.body.password
+  const errors = []
 
-  if (username === ADMIN_USERNAME && bcrypt.compare(password, hash)) { 
-    req.session.isLoggedIn = true
-    res.redirect('/')
-  } else {
-    res.render('login.hbs', {
-      hideFooter: true
-    })
-  }
+  bcrypt.compare(password, hash, (err, result) => {
+
+    if (err) {
+      errors.push("Authentication failed")
+      const model = {
+        errors,
+        hideFooter: true
+      }
+      res.render('login.hbs', model)
+    } else {
+      if (result && username == ADMIN_USERNAME) {
+        req.session.isLoggedIn = true
+        res.redirect('/')
+      } else {
+        errors.push("Wrong username or password")
+        const model = {
+          errors,
+          hideFooter: true
+        }
+        res.render('login.hbs', model)
+      }
+    }
+  })
 })
 
 app.get("/logout", (req, res) => {

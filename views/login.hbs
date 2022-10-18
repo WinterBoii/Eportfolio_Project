@@ -2,11 +2,8 @@
 	<div class="centered">
 		<div class="row">
 			<h1 class="section__title"><span class="orange">Login</span></h1>
-			{{#if error}}
-			<h5 class="text-error">{{error}}</h5>
-			{{/if}}
+			{{> errors}}
 			<form action="" method="POST">
-				<input type="hidden" name="_csrf" value="{{csrfTokenFunc}}" />
 				<div class="form-group">
 					<label class="form-label" for="input-example-1">Username</label>
 					<input name="username" class="form-input" type="username" placeholder="Email" />
