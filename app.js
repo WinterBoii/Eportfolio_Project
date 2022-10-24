@@ -11,7 +11,6 @@ const app = express()
 const guestBookRouter = require("./routers/guestbook")
 const projectRouter = require("./routers/project")
 const collaborationRouter = require("./routers/collaboration")
-const { Result } = require("express-validator")
 
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }))
